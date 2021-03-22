@@ -14,7 +14,15 @@ public class LoginResponseCodeConst extends ResponseCodeConst{
 
     public static final LoginResponseCodeConst ACCOUNT_ERROR = new LoginResponseCodeConst(203,"账号或密码错误");
 
+    public static final LoginResponseCodeConst LOGIN_SUCCESS = new LoginResponseCodeConst(204,"登录成功",true);
+
+    public static final LoginResponseCodeConst LOGOUT_SUCCESS = new LoginResponseCodeConst(205,"登出成功",true);
+
     public LoginResponseCodeConst(int code, String msg) {
         super(code, msg);
+    }
+
+    public LoginResponseCodeConst(int code,String mag,boolean success){
+        super(code,mag,success);
     }
 }
