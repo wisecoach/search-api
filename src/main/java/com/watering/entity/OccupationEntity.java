@@ -10,25 +10,20 @@ import java.util.Date;
 /**
  * Created with IntelliJ IDEA.
  *
- * @Auther: Parsley
- * @Date: 2021/03/21/17:01
- * @Description: 出勤率实体类
+ * @Auther: LKM
+ * @Date: 2021/03/23/13:29
+ * @Description: 职业实体类
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AttendanceEntity {
-
+public class OccupationEntity {
     private Integer id;
     private Date ctime;
-    //雇员id
-    private Integer empid;
-    //主管id
-    private Integer manid;
-    //出勤率
-    private Double attendance;
-    private Date stime;
-    private Date etime;
-
+    private String name;
+    //父职业id
+    private Integer pid;
+    //引用次数
+    private Integer count;
 }
