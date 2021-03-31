@@ -10,25 +10,28 @@ import java.util.Date;
 /**
  * Created with IntelliJ IDEA.
  *
- * @Auther: Parsley
- * @Date: 2021/03/21/17:01
- * @Description: 出勤率实体类
+ * @Auther: LKM
+ * @Date: 2021/03/23/13:29
+ * @Description: 评价得分实体类
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AttendanceEntity {
-
+public class ScoreEntity {
     private Integer id;
     private Date ctime;
     //雇员id
     private Integer empid;
-    //主管id
-    private Integer manid;
-    //出勤率
-    private Double attendance;
-    private Date stime;
-    private Date etime;
+    //是否是HR评价
+    private boolean ishr;
+    //评估人id
+    private Integer valid;
+    //态度评分
+    private float attitude;
+    //能力评分
+    private float ability;
+    //评价描述
+    private String detail;
 
 }

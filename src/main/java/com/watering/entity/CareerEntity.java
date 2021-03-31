@@ -1,5 +1,6 @@
 package com.watering.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,25 +11,25 @@ import java.util.Date;
 /**
  * Created with IntelliJ IDEA.
  *
- * @Auther: Parsley
- * @Date: 2021/03/21/17:01
- * @Description: 出勤率实体类
+ * @Auther: LKM
+ * @Date: 2021/03/23/13:29
+ * @Description: 职业生涯实体类
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AttendanceEntity {
-
+public class CareerEntity {
     private Integer id;
     private Date ctime;
     //雇员id
     private Integer empid;
-    //主管id
-    private Integer manid;
-    //出勤率
-    private Double attendance;
+    //公司id
+    private Integer enpid;
+    //部门id
+    private Integer depid;
     private Date stime;
     private Date etime;
-
+    //职业id
+    private Integer oocid;
 }
