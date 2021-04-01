@@ -26,4 +26,5 @@ public class OccupationEntity {
     private Integer pid;
     //引用次数
     private Integer count;
+    private Integer level;
 }
