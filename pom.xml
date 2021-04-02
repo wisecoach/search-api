@@ -18,6 +18,9 @@
         <druid.version>1.1.22</druid.version>
         <fastjson.version>1.2.70</fastjson.version>
         <excel.version>2.2.4</excel.version>
+        <swagger.version>2.9.2</swagger.version>
+        <pagehelper.version>5.1.8</pagehelper.version>
+        <mybatis-generator.version>1.4.0</mybatis-generator.version>
     </properties>
 
     <dependencies>
@@ -85,6 +88,35 @@
             <artifactId>easyexcel</artifactId>
             <version>${excel.version}</version>
         </dependency>
+
+        <!-- 自动生成mapper工具 -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>${mybatis-generator.version}</version>
+        </dependency>
+
+        <!-- swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <!-- swagger2的UI -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

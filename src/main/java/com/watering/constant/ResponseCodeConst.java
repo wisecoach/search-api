@@ -16,7 +16,7 @@ import java.util.Map;
 public class ResponseCodeConst {
 
     static {
-        // 系统功能，从0开始，step=1000
+        // 系统功能，从0开始
         ResponseCodeContainer.register(ResponseCodeConst.class, 0, 200);
         ResponseCodeContainer.register(LoginResponseCodeConst.class, 201, 300);
 
@@ -37,7 +37,7 @@ public class ResponseCodeConst {
 
 //    public static final ResponseCodeConst NOT_EXISTS = new ResponseCodeConst(106, "数据不存在");
 
-//    public static ResponseCodeConst JSON_FORMAT_ERROR = new ResponseCodeConst(107, "JSON格式错误");
+    public static ResponseCodeConst JSON_FORMAT_ERROR = new ResponseCodeConst(105, "JSON格式或请求参数错误");
 
     protected int code;
 
