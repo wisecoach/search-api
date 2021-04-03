@@ -1,9 +1,8 @@
 package com.watering.config;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.deploy.util.SyncFileAccess;
 import com.watering.constant.LoginResponseCodeConst;
-import com.watering.entity.DTO.ResponseDTO;
+import com.watering.domain.DTO.ResponseDTO;
 import com.watering.security.MySecurityInterceptor;
 import com.watering.security.MyUsernamePasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -63,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置全部路径需要认证
                 .antMatcher("/**").authorizeRequests()
                 //匹配的路径全部运行通过
-                .antMatchers("/login**","logout**").permitAll()
+                .antMatchers("/login**","logout**","/swagger**","/**").permitAll()
                 //这里使用的时候不能带ROLE_前缀,其实用了数据库导入url可以不要ROLE_前缀
 //                .antMatchers("/uel").hasRole("role")
                 //所有路径需要认证

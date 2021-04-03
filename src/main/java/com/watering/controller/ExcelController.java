@@ -7,16 +7,20 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AbstractIgnoreExceptionReadListener;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.metadata.ReadSheet;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/excel")
+@ApiIgnore
+@Api(tags = "Excel使用")
 public class ExcelController {
     @RequestMapping("/file")
     public String upload(@RequestParam("file")MultipartFile file){

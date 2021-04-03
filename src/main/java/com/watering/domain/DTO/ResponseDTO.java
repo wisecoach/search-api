@@ -1,4 +1,4 @@
-package com.watering.entity.DTO;
+package com.watering.domain.DTO;
 
 import com.watering.constant.ResponseCodeConst;
 

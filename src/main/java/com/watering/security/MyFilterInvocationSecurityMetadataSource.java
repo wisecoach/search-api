@@ -1,7 +1,5 @@
 package com.watering.security;
 
-import com.watering.entity.DTO.PermissionDTO;
-import com.watering.entity.DTO.RoleDTO;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
