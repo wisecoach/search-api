@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/excel")
+@ApiIgnore
 @Api(tags = "Excel使用")
 public class ExcelController {
     @RequestMapping("/file")
