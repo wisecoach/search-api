@@ -56,6 +56,15 @@ public class TestController {
         lists.add(mapper.selectAll());
         lists.add(careerEntityMapper.selectAll());
         lists.add(crimeEntityMapper.selectAll());
+        lists.add(departmentEntityMapper.selectAll());
+        lists.add(employeeEntityMapper.selectAll());
+        lists.add(enterpriseEntityMapper.selectAll());
+        lists.add(hrEntityMapper.selectAll());
+        lists.add(industryEntityMapper.selectAll());
+        lists.add(managerEntityMapper.selectAll());
+        lists.add(occupationEntityMapper.selectAll());
+        lists.add(performanceEntityMapper.selectAll());
+        lists.add(scoreEntityMapper.selectAll());
         System.out.println(lists);
     }
     @Test
