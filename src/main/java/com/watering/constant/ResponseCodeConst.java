@@ -1,7 +1,5 @@
 package com.watering.constant;
 
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,7 @@ public class ResponseCodeConst {
         // 系统功能，从0开始
         ResponseCodeContainer.register(ResponseCodeConst.class, 0, 200);
         ResponseCodeContainer.register(LoginResponseCodeConst.class, 201, 300);
-
+        ResponseCodeContainer.register(FileResponseCodeConst.class,301,400);
 
     }
 

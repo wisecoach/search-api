@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置全部路径需要认证
                 .antMatcher("/**").authorizeRequests()
                 //匹配的路径全部运行通过
-                .antMatchers("/login**","logout**","/swagger**","/**").permitAll()
+                .antMatchers("/login**","logout**","/swagger**","/**","/**/*.jpg","/**/*.png").permitAll()
                 //这里使用的时候不能带ROLE_前缀,其实用了数据库导入url可以不要ROLE_前缀
 //                .antMatchers("/uel").hasRole("role")
                 //所有路径需要认证

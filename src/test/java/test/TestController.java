@@ -10,10 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.ResourceUtils;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -73,6 +76,13 @@ public class TestController {
         ManagerVO managerVO =new ManagerVO(2,new Date(),null,null,null,null,null);
         BeanUtils.copyProperties(managerEntity,managerVO);
         System.out.println(managerVO);
+    }
+
+    @Test
+    public void test2(){
+        System.out.println(UUID.randomUUID().toString().replace("-",""));
+        System.out.println( "apk.java".substring("apk.java".lastIndexOf(".")));
+        System.out.println( "apk.java".substring(0,"apk.java".lastIndexOf(".")));
     }
 
 

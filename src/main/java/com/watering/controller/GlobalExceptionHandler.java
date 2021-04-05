@@ -40,7 +40,9 @@ public class GlobalExceptionHandler {
         if (e instanceof HttpMessageNotReadableException) {
             return ResponseDTO.wrap(ResponseCodeConst.JSON_FORMAT_ERROR);
         }
-
+//        if(null!=e.getMessage()){
+//            return ResponseDTO.wrap(ResponseCodeConst.SYSTEM_ERROR,e.getMessage());
+//        }
         return ResponseDTO.wrap(ResponseCodeConst.SYSTEM_ERROR);
     }
 
