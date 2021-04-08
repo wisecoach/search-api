@@ -1,7 +1,7 @@
 package com.watering.controller;
 
-import com.watering.entity.DTO.ResponseDTO;
-import com.watering.entity.OccupationEntity;
+import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.entity.OccupationEntity;
 import com.watering.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

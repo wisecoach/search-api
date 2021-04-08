@@ -1,6 +1,6 @@
 package com.watering.mapper;
 
-import com.watering.entity.EmployeeEntity;
+import com.watering.domain.entity.EmployeeEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

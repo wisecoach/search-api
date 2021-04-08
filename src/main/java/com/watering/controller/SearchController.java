@@ -1,7 +1,7 @@
 package com.watering.controller;
 
-import com.watering.entity.DTO.ResponseDTO;
-import com.watering.entity.DepartmentEntity;
+import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.entity.DepartmentEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,6 +1,6 @@
 package com.watering.service;
 
-import com.watering.entity.OccupationEntity;
+import com.watering.domain.entity.OccupationEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

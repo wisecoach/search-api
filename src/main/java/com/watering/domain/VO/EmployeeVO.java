@@ -1,0 +1,51 @@
+package com.watering.domain.VO;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.Date;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @Auther: Parsley
+ * @Date: 2021/04/01/16:07
+ * @Description:
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@ApiModel(description = "雇员VO模型详细信息")
+public class EmployeeVO extends EmployeeSimpleVO{
+    //电话
+    private String tel;
+    //是否被雇佣
+    private Boolean hired;
+    //头像url
+    private String photo;
+    //地址
+    private String address;
+    //邮箱
+    private String mail;
+    //简历的url
+    private String resume;
+    //公司id
+//    private EnterpriseVO enterprise;
+    @ApiModelProperty("公司名称")
+    private String enterprise;
+    //部门id
+//    private DepartmentEntity department;
+    @ApiModelProperty("部门名称")
+    private String department;
+    //招聘的hrid
+    private HrVO hr;
+    //公司内部员工id
+    private String innid;
+
+
+}
