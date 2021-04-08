@@ -1,5 +1,6 @@
 package com.watering.service;
 
+import com.watering.domain.entity.HrEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,13 +23,16 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        /*
-        无数据库测试用
+
         List list = new ArrayList();
         list.add(new SimpleGrantedAuthority("ROLE_admin"));
-        User user = new User("root",new BCryptPasswordEncoder().encode("1234"),list);
+        HrEntity user = new HrEntity();
+        user.setName("root");
+        user.setPassword(new BCryptPasswordEncoder().encode("1234"));
+        user.setId(1);
+        user.setAuthorities(list);
+        System.out.println(user);
         return user;
-         */
-        return null;
+
     }
 }
