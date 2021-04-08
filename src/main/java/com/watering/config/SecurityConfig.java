@@ -3,7 +3,7 @@ package com.watering.config;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.deploy.util.SyncFileAccess;
 import com.watering.constant.LoginResponseCodeConst;
-import com.watering.entity.DTO.ResponseDTO;
+import com.watering.domain.DTO.ResponseDTO;
 import com.watering.security.MySecurityInterceptor;
 import com.watering.security.MyUsernamePasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;

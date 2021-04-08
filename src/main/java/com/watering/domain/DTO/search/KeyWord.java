@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class KeyWord {
-    private String val;
+    private String value;
     private Type type;
 
     public enum Type{
