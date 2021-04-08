@@ -15,7 +15,7 @@ public class KeyWord {
     private Type type;
 
     public enum Type{
-        NAME,SCHOOL,MAJOR,DEPARTMENT
+        NAME,MAJOR,DEPARTMENT
     }
 
 }
