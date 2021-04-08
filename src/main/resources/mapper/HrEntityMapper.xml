@@ -8,18 +8,17 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="entid" jdbcType="INTEGER" property="entid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column=" photo" jdbcType="VARCHAR" property="photo" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from hr
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.HrEntity">
-    insert into hr (id, ctime, username, 
-      password, entid, name, 
-      " photo")
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{entid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    insert into hr (id, ctime, username,
+      password, entid, name, photo)
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{entid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
       #{photo,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.HrEntity">
@@ -29,16 +28,16 @@
       password = #{password,jdbcType=VARCHAR},
       entid = #{entid,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      " photo" = #{photo,jdbcType=VARCHAR}
+      photo = #{photo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, ctime, username, password, entid, name, " photo"
+    select id, ctime, username, password, entid, name, photo
     from hr
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, ctime, username, password, entid, name, " photo"
+    select id, ctime, username, password, entid, name, photo
     from hr
   </select>
 </mapper>

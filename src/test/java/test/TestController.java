@@ -4,6 +4,7 @@ import com.watering.ApiMain8081;
 import com.watering.dao.*;
 import com.watering.domain.DTO.search.KeyWord;
 import com.watering.domain.entity.AttendanceEntity;
+import com.watering.domain.entity.HrEntity;
 import com.watering.domain.entity.ManagerEntity;
 import com.watering.domain.VO.ManagerVO;
 import org.junit.jupiter.api.Test;
@@ -72,7 +73,7 @@ public class TestController {
     }
     @Test
     public void test1(){
-        ManagerEntity managerEntity = new ManagerEntity(1,new Date(),"old","1234",1,1,"test","/url");
+        ManagerEntity managerEntity = new ManagerEntity(null);
         ManagerVO managerVO =new ManagerVO(2,new Date(),null,null,null,null,null);
         BeanUtils.copyProperties(managerEntity,managerVO);
         System.out.println(managerVO);
@@ -83,6 +84,14 @@ public class TestController {
         System.out.println(UUID.randomUUID().toString().replace("-",""));
         System.out.println( "apk.java".substring("apk.java".lastIndexOf(".")));
         System.out.println( "apk.java".substring(0,"apk.java".lastIndexOf(".")));
+    }
+
+    @Test
+    public void test3(){
+        HrEntity hrEntity = hrEntityMapper.selectByPrimaryKey(1);
+        System.out.println(hrEntity);
+//        ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(1);
+//        System.out.println(managerEntity);
     }
 
 
