@@ -2,10 +2,10 @@ package test;
 
 import com.watering.ApiMain8081;
 import com.watering.dao.*;
+import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.search.KeyWord;
-import com.watering.domain.entity.AttendanceEntity;
-import com.watering.domain.entity.HrEntity;
-import com.watering.domain.entity.ManagerEntity;
+import com.watering.domain.VO.CareerVO;
+import com.watering.domain.entity.*;
 import com.watering.domain.VO.ManagerVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -103,6 +103,22 @@ public class TestController {
         System.out.println(new BCryptPasswordEncoder().encode("zhangdudu"));
     }
 
-
+    @Test
+    public void findAllCareer() {
+        CareerVO careerVO = new CareerVO();
+        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(1);
+        List<CareerVO> list = new ArrayList<>();
+        for (CareerEntity careerEntity : careerEntities) {
+            BeanUtils.copyProperties(careerEntity, careerVO);
+            EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(careerEntity.getEntid());
+            DepartmentEntity departmentEntity = departmentEntityMapper.selectByPrimaryKey(careerEntity.getDepid());
+            OccupationEntity occupationEntity = occupationEntityMapper.selectByPrimaryKey(careerEntity.getOccid());
+            careerVO.setEnterprise(enterpriseEntity.getName());
+            careerVO.setDepartment(departmentEntity.getName());
+            careerVO.setOccupation(occupationEntity.getName());
+            list.add(careerVO);
+        }
+        System.out.println(list);
+    }
 
 }

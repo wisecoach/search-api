@@ -49,4 +49,8 @@
     select id, ctime, empid, entid, depid, stime, etime, occid, attendance, performance
     from career
   </select>
+
+  <select id="selectAllByEmpid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from career where id=#{id}
+  </select>
 </mapper>

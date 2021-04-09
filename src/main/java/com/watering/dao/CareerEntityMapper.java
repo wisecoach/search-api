@@ -15,6 +15,8 @@ public interface CareerEntityMapper {
 
     CareerEntity selectByPrimaryKey(Integer id);
 
+    List<CareerEntity> selectAllByEmpid(Integer id);
+
     List<CareerEntity> selectAll();
 
     int updateByPrimaryKey(CareerEntity record);

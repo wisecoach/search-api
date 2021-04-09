@@ -35,12 +35,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, ctime, empid, manid, rank, critime, carid, detail
+    select *
     from crime
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, ctime, empid, manid, rank, critime, carid, detail
+    select *
     from crime
   </select>
 </mapper>

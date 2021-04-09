@@ -8,8 +8,10 @@ import com.watering.domain.DTO.crime.CrimeAddDTO;
 import com.watering.domain.DTO.performance.PerformanceAddDTO;
 import com.watering.domain.DTO.score.ScoreAddDTO;
 import com.watering.domain.VO.*;
+import com.watering.service.impl.CareerServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,10 +29,13 @@ import java.util.List;
 @RequestMapping("/career")
 public class CareerController {
 
+    @Autowired
+    private CareerServiceImpl careerService;
+
     @ApiOperation("根据empid查询员工所有经历")
     @GetMapping("/{empid}")
     public ResponseDTO<List<CareerVO>> findAllCareer(@RequestParam Integer empid){
-        return ResponseDTO.succData(new ArrayList<CareerVO>());
+        return careerService.findAllCareer(empid);
     }
 
     @ApiOperation("根据empid查询员工全部经历的两项平均分")
