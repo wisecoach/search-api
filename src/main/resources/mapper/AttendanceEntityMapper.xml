@@ -43,4 +43,8 @@
     select id, ctime, empid, manid, attendance, stime, etime, carid
     from attendance
   </select>
+
+  <select id="selectAllByCarid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from attendance where carid=#{carid}
+  </select>
 </mapper>

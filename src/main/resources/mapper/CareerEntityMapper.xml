@@ -51,6 +51,6 @@
   </select>
 
   <select id="selectAllByEmpid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select * from career where id=#{id}
+    select * from career where empid=#{empid}
   </select>
 </mapper>

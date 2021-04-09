@@ -41,25 +41,25 @@ public class CareerController {
     @ApiOperation("根据empid查询员工全部经历的两项平均分")
     @GetMapping("/avgscore/{empid}")
     public ResponseDTO<AvgScoreVO> findAvgScore(@RequestParam Integer empid){
-        return ResponseDTO.succData(new AvgScoreVO());
+        return careerService.findAvgScore(empid);
     }
 
     @ApiOperation("根据empid查询全部的违纪记录")
     @GetMapping("/crime/{empid}")
     public ResponseDTO<List<CrimeVO>> findAllCrime(@RequestParam Integer empid){
-        return ResponseDTO.succData(new ArrayList<CrimeVO>());
+        return careerService.findAllCrime(empid);
     }
 
     @ApiOperation("根据carid查询该经历考勤记录")
     @GetMapping("/attendance/{carid}")
     public ResponseDTO<List<AttendanceVO>> findCurAttendance(@RequestParam Integer carid){
-        return ResponseDTO.succData(new ArrayList<AttendanceVO>());
+        return careerService.findCurAttendance(carid);
     }
 
     @ApiOperation("根据carid查询该经历绩效记录")
     @GetMapping("/performance/{carid}")
     public ResponseDTO<List<PerformanceVO>> findCurPerformance(@RequestParam Integer carid){
-        return ResponseDTO.succData(new ArrayList<PerformanceVO>());
+        return careerService.findCurPerformance(carid);
     }
 
     @ApiOperation("根据carid查询该经历违纪记录")

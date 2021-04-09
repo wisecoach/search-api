@@ -4,9 +4,8 @@ import com.watering.ApiMain8081;
 import com.watering.dao.*;
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.search.KeyWord;
-import com.watering.domain.VO.CareerVO;
+import com.watering.domain.VO.*;
 import com.watering.domain.entity.*;
-import com.watering.domain.VO.ManagerVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +73,12 @@ public class TestController {
     }
     @Test
     public void test1(){
-        ManagerEntity managerEntity = new ManagerEntity(null);
-        ManagerVO managerVO =new ManagerVO(2,new Date(),null,null,null,null,null);
+
+    ManagerEntity managerEntity = new ManagerEntity(null);
+    ManagerVO managerVO =new ManagerVO(2,new Date(),null,null,null,null,null);
         BeanUtils.copyProperties(managerEntity,managerVO);
         System.out.println(managerVO);
-    }
-
+}
     @Test
     public void test2(){
         System.out.println(UUID.randomUUID().toString().replace("-",""));
@@ -105,10 +104,10 @@ public class TestController {
 
     @Test
     public void findAllCareer() {
-        CareerVO careerVO = new CareerVO();
-        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(1);
+        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(2);
         List<CareerVO> list = new ArrayList<>();
         for (CareerEntity careerEntity : careerEntities) {
+            CareerVO careerVO = new CareerVO();
             BeanUtils.copyProperties(careerEntity, careerVO);
             EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(careerEntity.getEntid());
             DepartmentEntity departmentEntity = departmentEntityMapper.selectByPrimaryKey(careerEntity.getDepid());
@@ -117,6 +116,77 @@ public class TestController {
             careerVO.setDepartment(departmentEntity.getName());
             careerVO.setOccupation(occupationEntity.getName());
             list.add(careerVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findAvgScore(){
+        float attitude=0,ability=0;
+        AvgScoreVO avgScoreVO = new AvgScoreVO();
+        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(2);
+        System.out.println(careerEntities.size());
+        for (CareerEntity careerEntity:careerEntities){
+            attitude+=careerEntity.getAttendance();
+            ability+=careerEntity.getPerformance();
+        }
+        avgScoreVO.setAttitude(attitude/careerEntities.size());
+        avgScoreVO.setAbility(ability/careerEntities.size());
+        System.out.println(avgScoreVO);
+    }
+
+    @Test
+    public void findAllCrime(){
+        List<CrimeVO> list = new ArrayList<>();
+        List<CrimeEntity> crimeEntities=crimeEntityMapper.selectAllByEmpid(2);
+        for (CrimeEntity crimeEntity:crimeEntities){
+            CrimeVO crimeVO = new CrimeVO();
+            BeanUtils.copyProperties(crimeEntity,crimeVO);
+            crimeVO.setManager(managerEntityMapper.selectByPrimaryKey(crimeEntity.getManid()).getName());
+            list.add(crimeVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findCurAttendance(){
+        List<AttendanceVO> list=new ArrayList<>();
+        List<AttendanceEntity> attendanceEntities = mapper.selectAllByCarid(1);
+        for (AttendanceEntity attendanceEntity:attendanceEntities){
+            AttendanceVO attendanceVO = new AttendanceVO();
+            ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(attendanceEntity.getManid());
+            BeanUtils.copyProperties(attendanceEntity,attendanceVO);
+            attendanceVO.setManager(managerEntity.getName());
+            list.add(attendanceVO);
+
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findCurPerformance(){
+        List<PerformanceVO> list=new ArrayList<>();
+        List<PerformanceEntity> performanceEntities= performanceEntityMapper.selectAllByCarid(1);
+        for (PerformanceEntity performanceEntity:performanceEntities){
+            PerformanceVO performanceVO=new PerformanceVO();
+            ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(performanceEntity.getManid());
+            BeanUtils.copyProperties(performanceEntity,performanceVO);
+            performanceVO.setManager(managerEntity.getName());
+            list.add(performanceVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findCurCrime(){
+        List<CrimeVO> list=new ArrayList<>();
+        List<CrimeEntity> crimeEntities=crimeEntityMapper.selectAllByCarid(2);
+        for (CrimeEntity crimeEntity:crimeEntities){
+            CrimeVO crimeVO=new CrimeVO();
+            ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(crimeEntity.getManid());
+            BeanUtils.copyProperties(crimeEntity,crimeVO);
+            crimeVO.setManager(managerEntity.getName());
+            list.add(crimeVO);
         }
         System.out.println(list);
     }
