@@ -1,13 +1,20 @@
 package com.watering.controller;
 
+import com.watering.constant.LoginResponseCodeConst;
+import com.watering.domain.DTO.RoleDTO;
 import com.watering.domain.DTO.hr.HrAddDTO;
 import com.watering.domain.DTO.hr.HrUpdateDTO;
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.manager.ManagerAddDTO;
 import com.watering.domain.DTO.manager.ManagerUpdateDTO;
+import com.watering.domain.VO.EnterpriseVO;
+import com.watering.domain.VO.HrVO;
+import com.watering.domain.VO.ManagerVO;
+import com.watering.utils.GetCurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.ehcache.impl.internal.classes.commonslang.ArrayUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +35,8 @@ public class UserController {
     @ApiOperation("用sessionId获取用户信息")
     @GetMapping("/myInfo")
     public ResponseDTO WhoAmI(){
-        return ResponseDTO.succData(SecurityContextHolder.getContext());
+        String role = GetCurrentUser.getUserRole();
+        return ResponseDTO.succData(role);
     }
 
     @ApiOperation("获取验证码")

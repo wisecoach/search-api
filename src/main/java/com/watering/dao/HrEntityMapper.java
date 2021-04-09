@@ -18,4 +18,6 @@ public interface HrEntityMapper {
     List<HrEntity> selectAll();
 
     int updateByPrimaryKey(HrEntity record);
+
+    HrEntity selectByUserName(String username);
 }

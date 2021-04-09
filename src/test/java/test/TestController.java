@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;
@@ -92,6 +93,14 @@ public class TestController {
         System.out.println(hrEntity);
 //        ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(1);
 //        System.out.println(managerEntity);
+    }
+
+    @Test
+    public void test4(){
+        System.out.println(new BCryptPasswordEncoder().encode("zhaojing"));
+        System.out.println(new BCryptPasswordEncoder().encode("xhjy"));
+        System.out.println(new BCryptPasswordEncoder().encode("zhuzhen"));
+        System.out.println(new BCryptPasswordEncoder().encode("zhangdudu"));
     }
 
 

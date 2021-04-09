@@ -18,6 +18,8 @@ public class LoginResponseCodeConst extends ResponseCodeConst{
 
     public static final LoginResponseCodeConst LOGOUT_SUCCESS = new LoginResponseCodeConst(205,"登出成功",true);
 
+    public static final LoginResponseCodeConst SESSION_ERROR = new LoginResponseCodeConst(206,"Session无效或已过期");
+
     public LoginResponseCodeConst(int code, String msg) {
         super(code, msg);
     }

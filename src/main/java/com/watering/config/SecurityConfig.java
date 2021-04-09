@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.session.InvalidSessionStrategy;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.deleteCookies()
                 .and()
                 .csrf().disable();
+
+        //session管理
+        http.sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy());
+
         //用重写的Filter替换掉原有的UsernamePasswordAuthenticationFilter
         http
                 .addFilterAt(usernamePasswordAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)
@@ -171,6 +177,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
                       String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.NOT_HAVE_PRIVILEGES));
                       responseHandler(httpServletResponse,responseString);
+            }
+        };
+    }
+
+    //session过期或无效处理
+    @Bean
+    public InvalidSessionStrategy invalidSessionStrategy(){
+        return new InvalidSessionStrategy() {
+            @Override
+            public void onInvalidSessionDetected(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+                String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.SESSION_ERROR));
+                responseHandler(httpServletResponse,responseString);
             }
         };
     }

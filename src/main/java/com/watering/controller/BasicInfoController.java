@@ -1,14 +1,18 @@
 package com.watering.controller;
 
+import com.watering.constant.LoginResponseCodeConst;
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.DTO.RoleDTO;
 import com.watering.domain.DTO.employee.EmployeeAddDTO;
 import com.watering.domain.DTO.employee.EmployeeUpdateBaseDTO;
 import com.watering.domain.VO.EmployeeVO;
 import com.watering.domain.VO.EnterpriseVO;
 import com.watering.domain.VO.HrVO;
 import com.watering.domain.VO.ManagerVO;
+import com.watering.utils.GetCurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -45,19 +49,25 @@ public class BasicInfoController {
     @ApiOperation("公司账号登录查询公司基本信息")
     @GetMapping("/enterprise")
     public ResponseDTO<EnterpriseVO> findEnterpriseBasicInfo(){
-        return ResponseDTO.succData(new EnterpriseVO());
+        EnterpriseVO enterpriseVO = new EnterpriseVO();
+        BeanUtils.copyProperties(GetCurrentUser.getUser(),enterpriseVO);
+        return ResponseDTO.succData(enterpriseVO);
     }
 
     @ApiOperation("Hr账号登录查询Hr基本信息")
     @GetMapping("/hr")
     public ResponseDTO<HrVO> findHrBasicInfo(){
-        return ResponseDTO.succData(new HrVO());
+        HrVO hrVO = new HrVO();
+        BeanUtils.copyProperties(GetCurrentUser.getUser(),hrVO);
+        return ResponseDTO.succData(hrVO);
     }
 
     @ApiOperation("主管账号登录查询主管基本信息")
     @GetMapping("/manager")
     public ResponseDTO<ManagerVO> findManagerBasicInfo(){
-        return ResponseDTO.succData(new ManagerVO());
+        ManagerVO managerVO =new ManagerVO();
+        BeanUtils.copyProperties(GetCurrentUser.getUser(),managerVO);
+        return ResponseDTO.succData(managerVO);
     }
 
 }

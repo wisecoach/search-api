@@ -18,4 +18,6 @@ public interface ManagerEntityMapper {
     List<ManagerEntity> selectAll();
 
     int updateByPrimaryKey(ManagerEntity record);
+
+    ManagerEntity selectByUserName(String username);
 }

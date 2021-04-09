@@ -4,6 +4,7 @@ import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.department.DepartmentDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,10 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
+
     @ApiOperation("新增部门")
     @PostMapping("")
     public ResponseDTO addDepartment(@RequestBody DepartmentDTO department){
-        return null;
+        return ResponseDTO.succ();
     }
 
     @ApiOperation("修改部门")

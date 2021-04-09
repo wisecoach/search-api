@@ -45,4 +45,9 @@
     select id, ctime, username, password, indid, stime, etime, photo, name
     from enterprise
   </select>
+
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    select * from enterprise where username = #{username}
+  </select>
+
 </mapper>

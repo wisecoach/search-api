@@ -16,11 +16,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.CrimeEntity">
-    insert into crime (id, ctime, empid, 
-      manid, rank, critime, 
+    insert into crime (id, ctime, empid,
+      manid, rank, critime,
       carid, detail)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER}, 
-      #{manid,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, #{critime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER},
+      #{manid,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, #{critime,jdbcType=TIMESTAMP},
       #{carid,jdbcType=INTEGER}, #{detail,jdbcType=LONGVARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.CrimeEntity">
