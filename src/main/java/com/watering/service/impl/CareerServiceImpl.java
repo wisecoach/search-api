@@ -58,38 +58,38 @@ public class CareerServiceImpl {
     }
 
 
-    public ResponseDTO<AvgScoreVO> findAvgScore(Integer empid){
-        float attitude=0,ability=0;
+    public ResponseDTO<AvgScoreVO> findAvgScore(Integer empid) {
+        float attitude = 0, ability = 0;
         AvgScoreVO avgScoreVO = new AvgScoreVO();
         List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(empid);
-        for (CareerEntity careerEntity:careerEntities){
-            attitude+=careerEntity.getAttendance();
-            ability+=careerEntity.getPerformance();
+        for (CareerEntity careerEntity : careerEntities) {
+            attitude += careerEntity.getAttendance();
+            ability += careerEntity.getPerformance();
         }
-        avgScoreVO.setAttitude(attitude/careerEntities.size());
-        avgScoreVO.setAbility(ability/careerEntities.size());
+        avgScoreVO.setAttitude(attitude / careerEntities.size());
+        avgScoreVO.setAbility(ability / careerEntities.size());
         return ResponseDTO.succData(avgScoreVO);
     }
 
-    public ResponseDTO<List<CrimeVO>> findAllCrime(Integer empid){
+    public ResponseDTO<List<CrimeVO>> findAllCrime(Integer empid) {
         List<CrimeVO> list = new ArrayList<>();
-        List<CrimeEntity> crimeEntities=crimeEntityMapper.selectAllByEmpid(empid);
-        for (CrimeEntity crimeEntity:crimeEntities){
+        List<CrimeEntity> crimeEntities = crimeEntityMapper.selectAllByEmpid(empid);
+        for (CrimeEntity crimeEntity : crimeEntities) {
             CrimeVO crimeVO = new CrimeVO();
-            BeanUtils.copyProperties(crimeEntity,crimeVO);
+            BeanUtils.copyProperties(crimeEntity, crimeVO);
             crimeVO.setManager(managerEntityMapper.selectByPrimaryKey(crimeEntity.getManid()).getName());
             list.add(crimeVO);
         }
         return ResponseDTO.succData(list);
     }
 
-    public ResponseDTO<List<AttendanceVO>> findCurAttendance(Integer carid){
-        List<AttendanceVO> list=new ArrayList<>();
+    public ResponseDTO<List<AttendanceVO>> findCurAttendance(Integer carid) {
+        List<AttendanceVO> list = new ArrayList<>();
         List<AttendanceEntity> attendanceEntities = attendanceEntityMapper.selectAllByCarid(carid);
-        for (AttendanceEntity attendanceEntity:attendanceEntities){
+        for (AttendanceEntity attendanceEntity : attendanceEntities) {
             AttendanceVO attendanceVO = new AttendanceVO();
             ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(attendanceEntity.getManid());
-            BeanUtils.copyProperties(attendanceEntity,attendanceVO);
+            BeanUtils.copyProperties(attendanceEntity, attendanceVO);
             attendanceVO.setManager(managerEntity.getName());
             list.add(attendanceVO);
 
@@ -97,26 +97,26 @@ public class CareerServiceImpl {
         return ResponseDTO.succData(list);
     }
 
-    public ResponseDTO<List<PerformanceVO>> findCurPerformance(Integer carid){
-        List<PerformanceVO> list=new ArrayList<>();
-        List<PerformanceEntity> performanceEntities= performanceEntityMapper.selectAllByCarid(carid);
-        for (PerformanceEntity performanceEntity:performanceEntities){
-            PerformanceVO performanceVO=new PerformanceVO();
+    public ResponseDTO<List<PerformanceVO>> findCurPerformance(Integer carid) {
+        List<PerformanceVO> list = new ArrayList<>();
+        List<PerformanceEntity> performanceEntities = performanceEntityMapper.selectAllByCarid(carid);
+        for (PerformanceEntity performanceEntity : performanceEntities) {
+            PerformanceVO performanceVO = new PerformanceVO();
             ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(performanceEntity.getManid());
-            BeanUtils.copyProperties(performanceEntity,performanceVO);
+            BeanUtils.copyProperties(performanceEntity, performanceVO);
             performanceVO.setManager(managerEntity.getName());
             list.add(performanceVO);
         }
         return ResponseDTO.succData(list);
     }
 
-    public ResponseDTO<List<CrimeVO>> findCurCrime(Integer carid){
-        List<CrimeVO> list=new ArrayList<>();
-        List<CrimeEntity> crimeEntities=crimeEntityMapper.selectAllByCarid(carid);
-        for (CrimeEntity crimeEntity:crimeEntities){
-            CrimeVO crimeVO=new CrimeVO();
+    public ResponseDTO<List<CrimeVO>> findCurCrime(Integer carid) {
+        List<CrimeVO> list = new ArrayList<>();
+        List<CrimeEntity> crimeEntities = crimeEntityMapper.selectAllByCarid(carid);
+        for (CrimeEntity crimeEntity : crimeEntities) {
+            CrimeVO crimeVO = new CrimeVO();
             ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(crimeEntity.getManid());
-            BeanUtils.copyProperties(crimeEntity,crimeVO);
+            BeanUtils.copyProperties(crimeEntity, crimeVO);
             crimeVO.setManager(managerEntity.getName());
             list.add(crimeVO);
         }

@@ -191,4 +191,39 @@ public class TestController {
         System.out.println(list);
     }
 
+    @Test
+    public void hrSearch(){
+        List<HrVO> list=new ArrayList<>();
+        List<HrEntity> hrEntities = hrEntityMapper.selectAll();
+        for (HrEntity hrEntity:hrEntities){
+            HrVO hrVO = new HrVO();
+            EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(hrEntity.getEntid());
+            BeanUtils.copyProperties(hrEntity,hrVO);
+            hrVO.setEnterprise(enterpriseEntity.getName());
+            list.add(hrVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void managerSearch() {
+        List<ManagerVO> list = new ArrayList<>();
+        List<ManagerEntity> managerEntities = managerEntityMapper.selectAll();
+        for (ManagerEntity managerEntity : managerEntities) {
+            ManagerVO managerVO = new ManagerVO();
+            EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(managerEntity.getEntid());
+            DepartmentEntity departmentEntity = departmentEntityMapper.selectByPrimaryKey(managerEntity.getDepid());
+            BeanUtils.copyProperties(managerEntity, managerVO);
+            managerVO.setEnterprise(enterpriseEntity.getName());
+            managerVO.setDepartment(departmentEntity.getName());
+            list.add(managerVO);
+        }
+        System.out.println(list);
+    }
+    @Test
+    public void departmentSearch(){
+        List<DepartmentEntity> list = departmentEntityMapper.selectAll();
+        System.out.println(list);
+    }
+
 }
