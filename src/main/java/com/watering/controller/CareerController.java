@@ -17,7 +17,25 @@ import java.util.Random;
 @RestController
 @RequestMapping("/career")
 public class CareerController {
-    @RequestMapping("/{empid}")
+    @RequestMapping("/{carid}")
+    public ResponseDTO<CareerVO> findCareer(@PathVariable("carid") Integer carid) {
+        Integer i = carid;
+        CareerVO vo = new CareerVO();
+        Random random = new Random();
+        vo.setId(i);
+        vo.setDepartment("部门"+i);
+        vo.setEnterprise("企业"+i);
+        vo.setStime(new Date(110 + i, i, i));
+        vo.setEtime(new Date(120 + i, i, i));
+        double v = random.nextDouble() * 100;
+        double v2 = random.nextDouble() * 100;
+        vo.setAttendance(v);
+        vo.setPerformance(v2);
+        vo.setOccupation("软件工程师");
+        return ResponseDTO.succData(vo);
+    }
+
+    @RequestMapping("/employee/{empid}")
     public ResponseDTO<List<CareerVO>> findEmployeeCareer(@PathVariable("empid") Integer empid){
         ArrayList<CareerVO> list = new ArrayList<>();
         Random random = new Random();
@@ -61,4 +79,30 @@ public class CareerController {
         }
         return ResponseDTO.succData(crimes);
     }
+
+    @RequestMapping("/curavgscore/{empid}")
+    public ResponseDTO<AvgScoreVO> searchThisAvgbyCarid(@PathVariable("empid") Integer empid){
+        Random random = new Random();
+        AvgScoreVO scoreVO = new AvgScoreVO(random.nextFloat() * 100, random.nextFloat() * 100);
+        return ResponseDTO.succData(scoreVO);
+    }
+
+    @RequestMapping("/curcrime/{empid}")
+    public ResponseDTO<List<CrimeVO>> searchThisCrimeByEmpid(@PathVariable("empid") Integer empid) {
+        ArrayList<CrimeVO> crimes = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            CrimeVO crimeVO = new CrimeVO();
+            crimeVO.setId(i);
+            crimeVO.setRank(i % 5);
+            crimeVO.setDetail("这个人犯罪了奥术大师多阿斯达阿斯达阿斯达阿斯达萨达萨达阿斯达阿斯达阿斯达阿斯达阿斯达阿斯达阿斯达" +
+                    "奥术大师真的jaoifhaosidjv osid fioas jdfoia smdvcojaoidcvnouahsdfgoiansdcvohzoxcjv osadjfoiasjd" +
+                    "zojcoiaaisdjisajdoaisjd asdjaioskdmwiamsjniochrbvoiuadnbfvoiahcviolmlzxhucvl" +
+                    "asdfasweqeqqeefffcvzisufhuaijosdfjioasjilfijlfasdijlfasdijlfasdjilfasdjilfasdjilafjilsdjilfas" +
+                    "djilasfdjiolasdfjiljioasdfdfgjmohjti90psdfhujildfv9o");
+            crimes.add(crimeVO);
+        }
+        return ResponseDTO.succData(crimes);
+    }
+
+
 }
