@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,14 +13,13 @@ import lombok.NoArgsConstructor;
  * @Description:
  */
 @Data
-@ApiModel(description = "平均分VO模型")
 @AllArgsConstructor
-@NoArgsConstructor
+@ApiModel(description = "平均分VO模型")
 public class AvgScoreVO {
     //态度评分
     @ApiModelProperty("态度评分")
-    private Float attitude;
+    private float attitude;
     //能力评分
     @ApiModelProperty("能力评分")
-    private Float ability;
+    private float ability;
 }

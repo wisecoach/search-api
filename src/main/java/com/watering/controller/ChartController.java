@@ -20,20 +20,20 @@ public class ChartController {
     @Autowired
     private OccupationService occupationService;
 
-    @RequestMapping("/amount")
-    public ResponseDTO getAmount(
-            @RequestParam("occid") Integer oocid,
-            @RequestParam(value = "size",defaultValue = "7") Integer size
-            ){
-        Random random = new Random();
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(random.nextInt(100));
-        }
-        OccupationEntity occupationEntity = occupationService.find(oocid);
-        HashMap<Object, Object> map = new HashMap<>();
-        map.put("occupation", occupationEntity);
-        map.put("series", list);
-        return ResponseDTO.succData(map);
-    }
+    // @RequestMapping("/amount")
+    // public ResponseDTO getAmount(
+    //         @RequestParam("occid") Integer oocid,
+    //         @RequestParam(value = "size",defaultValue = "7") Integer size
+    //         ){
+    //     Random random = new Random();
+    //     List<Integer> list = new ArrayList<>();
+    //     for (int i = 0; i < size; i++) {
+    //         list.add(random.nextInt(100));
+    //     }
+    //     OccupationEntity occupationEntity = occupationService.find(oocid);
+    //     HashMap<Object, Object> map = new HashMap<>();
+    //     map.put("occupation", occupationEntity);
+    //     map.put("series", list);
+    //     return ResponseDTO.succData(map);
+    // }
 }

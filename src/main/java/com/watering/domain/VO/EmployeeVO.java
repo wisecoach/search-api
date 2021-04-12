@@ -25,7 +25,7 @@ public class EmployeeVO extends EmployeeSimpleVO{
     //电话
     private String tel;
     //是否被雇佣
-    private Boolean hired;
+    private boolean hired;
     //头像url
     private String photo;
     //地址

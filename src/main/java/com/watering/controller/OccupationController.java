@@ -1,6 +1,7 @@
 package com.watering.controller;
 
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.VO.OccupationVO;
 import com.watering.domain.entity.OccupationEntity;
 import com.watering.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class OccupationController {
 
     @RequestMapping("/{pid}")
     public ResponseDTO findChildren(@PathVariable("pid") Integer pid){
-        List<OccupationEntity> children = occupationService.findChildren(pid);
-        return ResponseDTO.succData(children);
+        ResponseDTO<List<OccupationEntity>> children = occupationService.listSonOccupation(pid);
+        return children;
     }
 }

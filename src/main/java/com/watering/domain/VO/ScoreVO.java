@@ -17,14 +17,14 @@ public class ScoreVO {
     private Integer id;
     private Date ctime;
     //是否是HR评价
-    private Boolean ishr;
+    private boolean ishr;
     //评估人id
     @ApiModelProperty("评估人姓名")
     private String name;
     //态度评分
-    private Float attitude;
+    private float attitude;
     //能力评分
-    private Float ability;
+    private float ability;
     //评价描述
     private String detail;
 }

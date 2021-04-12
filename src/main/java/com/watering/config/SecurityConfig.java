@@ -1,7 +1,6 @@
 package com.watering.config;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.deploy.util.SyncFileAccess;
 import com.watering.constant.LoginResponseCodeConst;
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.security.MySecurityInterceptor;
@@ -23,17 +22,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Enumeration;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置全部路径需要认证
                 .antMatcher("/**").authorizeRequests()
                 //匹配的路径全部运行通过
-                .antMatchers("/login**","logout**","/**").permitAll()
+                .antMatchers("/login**","logout**","/swagger**","/**","/**/*.jpg","/**/*.png").permitAll()
                 //这里使用的时候不能带ROLE_前缀,其实用了数据库导入url可以不要ROLE_前缀
 //                .antMatchers("/uel").hasRole("role")
                 //所有路径需要认证
@@ -81,6 +85,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.deleteCookies()
                 .and()
                 .csrf().disable();
+
+        //session管理
+        http.sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy());
+
         //用重写的Filter替换掉原有的UsernamePasswordAuthenticationFilter
         http
                 .addFilterAt(usernamePasswordAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)
@@ -173,6 +182,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
                       String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.NOT_HAVE_PRIVILEGES));
                       responseHandler(httpServletResponse,responseString);
+            }
+        };
+    }
+
+    //session过期或无效处理
+    @Bean
+    public InvalidSessionStrategy invalidSessionStrategy(){
+        return new InvalidSessionStrategy() {
+            @Override
+            public void onInvalidSessionDetected(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+                Enumeration em = httpServletRequest.getSession().getAttributeNames();  //得到session中所有的属性名
+                while (em.hasMoreElements()) {
+                    httpServletRequest.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
+                }
+                String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.SESSION_ERROR));
+                responseHandler(httpServletResponse,responseString);
             }
         };
     }

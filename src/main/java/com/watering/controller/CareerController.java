@@ -1,12 +1,12 @@
 package com.watering.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.watering.domain.DTO.ResponseDTO;
-import com.watering.domain.VO.AvgScoreVO;
-import com.watering.domain.VO.CareerVO;
-import com.watering.domain.VO.CrimeVO;
-import com.watering.domain.VO.ScoreVO;
+import com.watering.domain.DTO.search.KeyWord;
+import com.watering.domain.VO.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -104,5 +104,57 @@ public class CareerController {
         return ResponseDTO.succData(crimes);
     }
 
+    @RequestMapping("/attendance/{carid}")
+    public ResponseDTO<List<AttendanceVO>> searchAttendancebyCarId(@PathVariable("carid") Integer carid){
+        ArrayList<AttendanceVO> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            AttendanceVO vo = new AttendanceVO();
+            vo.setId(i);
+            vo.setStime(new Date(110 + i, i, i));
+            vo.setEtime(new Date(120 + i, i, i));
+            double v = random.nextDouble() * 100;
+            double v2 = random.nextDouble() * 100;
+            vo.setAttendance(v);
+            list.add(vo);
+        }
+        return ResponseDTO.succData(list);
+    }
 
+    @RequestMapping("/performance/{carid}")
+    public ResponseDTO<List<PerformanceVO>> searchPerformancebyCarId(@PathVariable("carid") Integer carid){
+        ArrayList<PerformanceVO> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            PerformanceVO vo = new PerformanceVO();
+            vo.setId(i);
+            vo.setStime(new Date(110 + i, i, i));
+            vo.setEtime(new Date(120 + i, i, i));
+            int v = random.nextInt(100);
+            vo.setPerformance(v);
+            list.add(vo);
+        }
+        return ResponseDTO.succData(list);
+    }
+
+    @RequestMapping("/score")
+    public ResponseDTO<PageInfo<ScoreVO>> searchCareerScores(
+            @RequestParam("carid")Integer carid,
+            @RequestParam("page")Integer page,
+            @RequestParam("pageSize")Integer pageSize) {
+        ArrayList<ScoreVO> scores = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < pageSize; i++) {
+            ScoreVO scoreVO = new ScoreVO();
+            scoreVO.setDetail("我觉得海星");
+            scoreVO.setIshr(i % 2 == 0);
+            scoreVO.setAbility(random.nextFloat() *100);
+            scoreVO.setAttitude(random.nextFloat() *100);
+            scores.add(scoreVO);
+        }
+        PageInfo<ScoreVO> pageInfo = PageInfo.of(scores);
+        pageInfo.setPageNum(page);
+        pageInfo.setPageSize(pageSize);
+        return ResponseDTO.succData(pageInfo);
+    }
 }

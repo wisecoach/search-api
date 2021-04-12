@@ -27,4 +27,20 @@ public class RoleDTO implements ConfigAttribute {
     public String getAttribute() {
         return this.name;
     }
+
+    public enum Type{
+        ROLE_ENTERPRISE("ROLE_ENTERPRISE"),ROLE_HR("ROLE_HR"),ROLE_MANAGER("ROLE_MANAGER");
+
+        private String type;
+
+        Type(String type){
+            this.type = type;
+        }
+
+        public String getType(){
+            return type;
+        }
+
+    }
+
 }

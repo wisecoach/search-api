@@ -12,6 +12,6 @@ import lombok.Data;
 @Data
 public class HrAddDTO {
     private String username;
-    private String name;
     private String password;
+    private String name;
 }

@@ -1,8 +1,8 @@
 server:
   port: 8081
 
-#mybatis:
-#  config-location: classpath:mapper/*.xml
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 
 spring:
   datasource:
@@ -11,3 +11,17 @@ spring:
     url: jdbc:mysql://localhost:3306/search?characterEncoding=utf-8&useUnicode=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+
+  servlet:
+    multipart:
+#      单个文件大小
+      max-file-size: 30MB
+#      单次请求大小
+      max-request-size: 100MB
+
+
+
+upload-file-parent-path: /upload/
+
+default-photo-hr: /head_img/hr.jpg
+default-photo-manager: /head_img/manager.jpg

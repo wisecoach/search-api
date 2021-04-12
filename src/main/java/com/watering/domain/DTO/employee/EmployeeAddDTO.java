@@ -23,6 +23,8 @@ public class EmployeeAddDTO {
     private String tel;
     //头像url
     private String photo;
+    //工龄
+    private Double seniority;
     //地址
     private String address;
     //学历

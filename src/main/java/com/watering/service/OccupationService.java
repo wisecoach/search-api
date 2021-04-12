@@ -1,13 +1,23 @@
 package com.watering.service;
 
+import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.VO.OccupationVO;
 import com.watering.domain.entity.OccupationEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @Auther: Parsley
+ * @Date: 2021/04/11/17:28
+ * @Description:
+ */
 public interface OccupationService {
 
-    OccupationEntity find(Integer id);
+    void addCount(Integer occid);
+    void subtractCount(Integer occid);
+    ResponseDTO<List<OccupationEntity>> listSonOccupation(Integer occid);
+    ResponseDTO<List<OccupationEntity>> hotOccupation();
 
-    List<OccupationEntity> findChildren(Integer pid);
 }
