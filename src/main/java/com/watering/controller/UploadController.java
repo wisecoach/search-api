@@ -36,8 +36,7 @@ public class UploadController {
     @ApiOperation("测试用的")
     @GetMapping("/check")
     public ResponseDTO check(@RequestParam String name) throws FileNotFoundException {
-        fileUploadService.checkFile(name,FileTypeEnum.IMG_RESUME);
-        return ResponseDTO.succ();
+        return ResponseDTO.succData(fileUploadService.checkFile(name,FileTypeEnum.IMG_RESUME));
     }
 
     @ApiOperation("上传头像")
@@ -48,8 +47,8 @@ public class UploadController {
 
     @ApiOperation("修改头像")
     @PutMapping("/photo")
-    public ResponseDTO<String> updatePhoto(@RequestBody MultipartFile photo){
-        return fileUploadService.uploadFile(photo,FileTypeEnum.IMG_PHOTO);
+    public ResponseDTO updatePhoto(@RequestBody MultipartFile photo) throws FileNotFoundException {
+        return fileUploadService.updateFile(photo,FileTypeEnum.IMG_PHOTO);
     }
 
 

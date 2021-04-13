@@ -18,4 +18,11 @@ public interface OccupationEntityMapper {
     List<OccupationEntity> selectAll();
 
     int updateByPrimaryKey(OccupationEntity record);
+
+    List<OccupationEntity> listSonById(Integer pid);
+
+    OccupationEntity selectByPid(Integer id);
+
+    List<OccupationEntity> listHot();
+
 }

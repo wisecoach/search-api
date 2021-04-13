@@ -20,4 +20,6 @@ public interface HrEntityMapper {
     int updateByPrimaryKey(HrEntity record);
 
     HrEntity selectByUserName(String username);
+//
+//    String selectEntNameById(Integer id);
 }

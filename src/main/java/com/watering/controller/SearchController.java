@@ -8,8 +8,10 @@ import com.watering.domain.VO.EmployeeSimpleVO;
 import com.watering.domain.VO.HrVO;
 import com.watering.domain.VO.ManagerVO;
 import com.watering.domain.entity.DepartmentEntity;
+import com.watering.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +28,13 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchController {
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @ApiOperation("企业内员工查询")
     @PostMapping("/inner")
     public ResponseDTO<PageInfo<EmployeeSimpleVO>> innerEmployeeSearch(@RequestBody SearchDTO search){
-        return null;
+        return employeeService.innerEmployeeSearch(search);
     }
 
     @ApiOperation("离职员工查询")

@@ -48,4 +48,12 @@
     select * from manager where username = #{username}
   </select>
 
+<!--  <select id="selectEntNameById" resultType="String">-->
+<!--    select enterprise.name from manager left join enterprise on manager.entid = enterprise.id where manager.id = #{id}-->
+<!--  </select>-->
+
+<!--  <select id="selectDepNameById" resultType="String">-->
+<!--    select department.name from manager left join department on manager.depid = department.id where manager.id =#{id}-->
+<!--  </select>-->
+
 </mapper>

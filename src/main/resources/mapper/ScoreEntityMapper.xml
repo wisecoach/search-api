@@ -17,11 +17,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.ScoreEntity">
-    insert into score (id, ctime, empid, 
-      ishr, valid, attitude, ability, 
+    insert into score (id, ctime, empid,
+      ishr, valid, attitude, ability,
       carid, detail)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER}, 
-      #{ishr,jdbcType=BIT}, #{valid,jdbcType=INTEGER}, #{attitude,jdbcType=REAL}, #{ability,jdbcType=REAL}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER},
+      #{ishr,jdbcType=BIT}, #{valid,jdbcType=INTEGER}, #{attitude,jdbcType=REAL}, #{ability,jdbcType=REAL},
       #{carid,jdbcType=INTEGER}, #{detail,jdbcType=LONGVARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.ScoreEntity">
@@ -44,5 +44,8 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, ctime, empid, ishr, valid, attitude, ability, carid, detail
     from score
+  </select>
+  <select id="listByCarid" resultMap="BaseResultMap">
+    select * from score where carid = #{carid} order by id desc
   </select>
 </mapper>

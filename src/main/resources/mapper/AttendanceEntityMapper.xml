@@ -43,4 +43,7 @@
     select id, ctime, empid, manid, attendance, stime, etime, carid
     from attendance
   </select>
+  <select id="selectAvgByCarid" resultType="Double">
+    select avg(attendance) from attendance where carid = #{carid}
+  </select>
 </mapper>

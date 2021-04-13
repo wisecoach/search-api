@@ -8,8 +8,12 @@ import com.watering.domain.DTO.crime.CrimeAddDTO;
 import com.watering.domain.DTO.performance.PerformanceAddDTO;
 import com.watering.domain.DTO.score.ScoreAddDTO;
 import com.watering.domain.VO.*;
+import com.watering.service.CareerService;
+import com.watering.service.EmployeeService;
+import com.watering.service.ScoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,70 +31,85 @@ import java.util.List;
 @RequestMapping("/career")
 public class CareerController {
 
+    @Autowired
+    private ScoreService scoreService;
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private CareerService careerService;
+
     @ApiOperation("根据empid查询员工所有经历")
-    @GetMapping("/{empid}")
-    public ResponseDTO<List<CareerVO>> findAllCareer(@RequestParam Integer empid){
+    @GetMapping("/employee/{empid}")
+    public ResponseDTO<List<CareerVO>> findAllCareer(@PathVariable Integer empid){
         return ResponseDTO.succData(new ArrayList<CareerVO>());
     }
 
     @ApiOperation("根据empid查询员工全部经历的两项平均分")
     @GetMapping("/avgscore/{empid}")
-    public ResponseDTO<AvgScoreVO> findAvgScore(@RequestParam Integer empid){
+    public ResponseDTO<AvgScoreVO> findAvgScore(@PathVariable Integer empid){
         return ResponseDTO.succData(new AvgScoreVO());
     }
 
     @ApiOperation("根据empid查询全部的违纪记录")
     @GetMapping("/crime/{empid}")
-    public ResponseDTO<List<CrimeVO>> findAllCrime(@RequestParam Integer empid){
+    public ResponseDTO<List<CrimeVO>> findAllCrime(@PathVariable Integer empid){
         return ResponseDTO.succData(new ArrayList<CrimeVO>());
+    }
+
+    @ApiOperation("根据carid查询该次经历信息")
+    @GetMapping("/{carid}")
+    public ResponseDTO<CareerVO> findCareer(@PathVariable Integer carid){
+        return careerService.findCareer(carid);
     }
 
     @ApiOperation("根据carid查询该经历考勤记录")
     @GetMapping("/attendance/{carid}")
-    public ResponseDTO<List<AttendanceVO>> findCurAttendance(@RequestParam Integer carid){
+    public ResponseDTO<List<AttendanceVO>> findCurAttendance(@PathVariable Integer carid){
         return ResponseDTO.succData(new ArrayList<AttendanceVO>());
     }
 
     @ApiOperation("根据carid查询该经历绩效记录")
     @GetMapping("/performance/{carid}")
-    public ResponseDTO<List<PerformanceVO>> findCurPerformance(@RequestParam Integer carid){
+    public ResponseDTO<List<PerformanceVO>> findCurPerformance(@PathVariable Integer carid){
         return ResponseDTO.succData(new ArrayList<PerformanceVO>());
     }
 
     @ApiOperation("根据carid查询该经历违纪记录")
     @GetMapping("/curcrime/{carid}")
-    public ResponseDTO<List<CrimeVO>> findCurCrime(@RequestParam Integer carid){
+    public ResponseDTO<List<CrimeVO>> findCurCrime(@PathVariable Integer carid){
         return ResponseDTO.succData(new ArrayList<CrimeVO>());
     }
 
     @ApiOperation("根据carid,page,pageSize查询评价分页")
     @GetMapping("/score")
     public ResponseDTO<PageInfo<ScoreVO>> pageCurScore(@RequestParam Integer carid, @RequestParam Integer page, @RequestParam Integer pageSize){
-        return null;
+        return scoreService.pageCurScore(carid,page,pageSize);
     }
 
     @ApiOperation("Hr或主管评价员工-详细评价")
     @PostMapping("/score")
     public ResponseDTO evaluate(@RequestBody ScoreAddDTO score){
-        return ResponseDTO.succ();
+        return scoreService.evaluate(score);
     }
 
     @ApiOperation("根据carid查询该经历两项平均分")
     @GetMapping("/curavgscore/{empid}")
-    public ResponseDTO<AvgScoreVO> findCurAvgScore(@RequestParam Integer empid){
+    public ResponseDTO<AvgScoreVO> findCurAvgScore(@PathVariable Integer empid){
         return ResponseDTO.succData(new AvgScoreVO());
     }
 
     @ApiOperation("录用员工")
     @PostMapping("/employ")
     public ResponseDTO employ(@RequestBody CareerAddDTO career){
-        return ResponseDTO.succ();
+        return employeeService.employ(career);
     }
 
     @ApiOperation("员工离职")
     @GetMapping("/quit/{empid}")
-    public ResponseDTO quit(@RequestParam Integer empid){
-        return ResponseDTO.succ();
+    public ResponseDTO quit(@PathVariable Integer empid){
+        return employeeService.quit(empid);
     }
 
     @ApiOperation("录入绩效记录")

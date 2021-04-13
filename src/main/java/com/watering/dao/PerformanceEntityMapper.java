@@ -18,4 +18,7 @@ public interface PerformanceEntityMapper {
     List<PerformanceEntity> selectAll();
 
     int updateByPrimaryKey(PerformanceEntity record);
+
+    Double selectAvgByCarid(Integer carid);
+
 }

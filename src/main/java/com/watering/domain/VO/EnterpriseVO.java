@@ -26,7 +26,6 @@ public class EnterpriseVO {
     private Integer id;
     private Date ctime;
     private String username;
-//    private IndustryEntity industry;
     @ApiModelProperty("行业名")
     private String industry;
     private String name;

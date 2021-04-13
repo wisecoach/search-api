@@ -1,13 +1,14 @@
 package com.watering.controller;
 
+import com.watering.dao.OccupationEntityMapper;
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.VO.OccupationVO;
+import com.watering.domain.entity.OccupationEntity;
+import com.watering.service.OccupationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,16 +23,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/occupation")
 public class OccupationController {
+
+    @Autowired
+    private OccupationService occupationService;
+
     @ApiOperation("根据父id查询子职业")
     @GetMapping("/{occid}")
-    public ResponseDTO<List<OccupationVO>> find(@RequestParam Integer occid){
-        return null;
+    public ResponseDTO<List<OccupationEntity>> find(@PathVariable Integer occid){
+        return occupationService.listSonOccupation(occid);
     }
 
     @ApiOperation("热门职业")
     @GetMapping("/hot")
-    public ResponseDTO<List<OccupationVO>> hot(){
-        return null;
+    public ResponseDTO<List<OccupationEntity>> hot(){
+        return occupationService.hotOccupation();
     }
 
 }

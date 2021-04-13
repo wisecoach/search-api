@@ -17,14 +17,14 @@
     delete from career
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.watering.domain.entity.CareerEntity">
-    insert into career (id, ctime, empid, 
-      entid, depid, stime, 
-      etime, occid, attendance, 
+  <insert id="insert" parameterType="com.watering.domain.entity.CareerEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into career (id, ctime, empid,
+      entid, depid, stime,
+      etime, occid, attendance,
       performance)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER}, 
-      #{entid,jdbcType=INTEGER}, #{depid,jdbcType=INTEGER}, #{stime,jdbcType=TIMESTAMP}, 
-      #{etime,jdbcType=TIMESTAMP}, #{occid,jdbcType=INTEGER}, #{attendance,jdbcType=REAL}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER},
+      #{entid,jdbcType=INTEGER}, #{depid,jdbcType=INTEGER}, #{stime,jdbcType=TIMESTAMP},
+      #{etime,jdbcType=TIMESTAMP}, #{occid,jdbcType=INTEGER}, #{attendance,jdbcType=REAL},
       #{performance,jdbcType=REAL})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.CareerEntity">
@@ -48,5 +48,8 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, ctime, empid, entid, depid, stime, etime, occid, attendance, performance
     from career
+  </select>
+  <select id="selectLastCareerByEmpId" resultMap="BaseResultMap">
+    select * from career where empid = #{empid} order by id desc limit 1;
   </select>
 </mapper>

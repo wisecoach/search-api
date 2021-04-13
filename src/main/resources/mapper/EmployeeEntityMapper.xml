@@ -26,18 +26,18 @@
     delete from employee
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.watering.domain.entity.EmployeeEntity">
-    insert into employee (id, ctime, name, 
-      birth, gender, tel, hired, 
-      photo, seniority, address, 
-      degree, school, major, 
-      mail, resume, entid, 
+  <insert id="insert" parameterType="com.watering.domain.entity.EmployeeEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into employee (id, ctime, name,
+      birth, gender, tel, hired,
+      photo, seniority, address,
+      degree, school, major,
+      mail, resume, entid,
       depid, hrid, innid)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
-      #{birth,jdbcType=TIMESTAMP}, #{gender,jdbcType=BIT}, #{tel,jdbcType=VARCHAR}, #{hired,jdbcType=BIT}, 
-      #{photo,jdbcType=VARCHAR}, #{seniority,jdbcType=REAL}, #{address,jdbcType=VARCHAR}, 
-      #{degree,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
-      #{mail,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR}, #{entid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR},
+      #{birth,jdbcType=TIMESTAMP}, #{gender,jdbcType=BIT}, #{tel,jdbcType=VARCHAR}, #{hired,jdbcType=BIT},
+      #{photo,jdbcType=VARCHAR}, #{seniority,jdbcType=REAL}, #{address,jdbcType=VARCHAR},
+      #{degree,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR},
+      #{mail,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR}, #{entid,jdbcType=INTEGER},
       #{depid,jdbcType=INTEGER}, #{hrid,jdbcType=INTEGER}, #{innid,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.EmployeeEntity">
@@ -63,14 +63,53 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, ctime, name, birth, gender, tel, hired, photo, seniority, address, degree, 
+    select id, ctime, name, birth, gender, tel, hired, photo, seniority, address, degree,
     school, major, mail, resume, entid, depid, hrid, innid
     from employee
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, ctime, name, birth, gender, tel, hired, photo, seniority, address, degree, 
+    select id, ctime, name, birth, gender, tel, hired, photo, seniority, address, degree,
     school, major, mail, resume, entid, depid, hrid, innid
     from employee
   </select>
+
+  <insert id="insertHistoryOccupation">
+    insert into emp_occ_mapper (ctime,empid,occid)
+    select #{ctime},#{empid},#{occid}
+    from dual
+    where not exists(select * from emp_occ_mapper where empid = #{empid} and occid = #{occid})
+  </insert>
+
+  <select id="listEmpidByHistoryOccid" resultType="Integer">
+    select empid from emp_occ_mapper where occid = #{occid}
+  </select>
+
+  <select id="listBySearchDTO" parameterType="com.watering.domain.DTO.search.SearchDTO" resultMap="BaseResultMap">
+    select * from employee
+    <where>
+      <choose>
+        <when test="key.type.getType() == 'NAME'">and name like concat('%',#{key.value},'%')</when>
+        <when test="key.type.getType() == 'MAJOR'">and major like concat('%',#{key.value},'%')</when>
+        <when test="key.type.getType() == 'DEPARTMENT'">and depid in (#{key.value})</when>
+        <otherwise>and id = -1</otherwise>
+      </choose>
+      <foreach collection="filters" item="filter">
+        <choose>
+          <when test="filter.type.getType() == 'BIRTH'"><if test="filter.start != null">and birth &gt;= #{filter.start}</if><if test="filter.end != null">and birth &lt;= #{filter.end}</if></when>
+          <when test="filter.type.getType() == 'GENDER'"><if test="filter.start != null">and gender = #{filter.start}</if></when>
+          <when test="filter.type.getType() == 'SENIORITY'"><if test="filter.start != null">and seniority &gt;= #{filter.start}</if><if test="filter.end != null">and seniority &lt;= #{filter.end}</if></when>
+          <when test="filter.type.getType() == 'DEGREE'"><if test="filter.start != null">and degree &gt;= #{filter.start}</if><if test="filter.end != null">and degree &lt;= #{filter.end}</if></when>
+<!--          <when test="filter.type.getType() == 'ATTENDANCE'"></when>-->
+<!--          <when test="filter.type.getType() == 'PERFORMANCE'"></when>-->
+<!--          <when test="filter.type.getType() == 'ATTITUDE'"></when>-->
+<!--          <when test="filter.type.getType() == 'ABILITY'"></when>-->
+          <when test="filter.type.getType() == 'OCCUPATION'"><if test="filter.start != null">and id in (#{filter.start})</if></when>
+          <when test="filter.type.getType() == 'ENTERPRISE'"><if test="filter.start != null">and entid = #{filter.start}</if></when>
+          <when test="filter.type.getType() == 'HIRED'"><if test="filter.start != null">and hired = #{filter.start}</if></when>
+        </choose>
+      </foreach>
+    </where>
+  </select>
+
 </mapper>
