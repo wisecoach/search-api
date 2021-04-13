@@ -11,12 +11,13 @@ import lombok.Data;
  */
 @Data
 public class EmployeeUpdateCareerDTO {
-    //公司id
-    private Integer entid;
+
+    //雇员id
+    private Integer empid;
+
     //部门id
     private Integer depid;
-    //招聘的hrid
-    private Integer hrid;
+
     //公司内部员工id
     private String innid;
 }

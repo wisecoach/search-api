@@ -18,4 +18,7 @@ public interface ScoreEntityMapper {
     List<ScoreEntity> selectAll();
 
     int updateByPrimaryKey(ScoreEntity record);
+
+    List<ScoreEntity> listByCarid(Integer carid);
+
 }

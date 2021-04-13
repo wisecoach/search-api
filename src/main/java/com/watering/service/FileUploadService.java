@@ -95,6 +95,13 @@ public class FileUploadService {
         return oldFile.renameTo(newFile);
     }
 
+
+    public ResponseDTO updateFile(MultipartFile multipartFile, FileTypeEnum fileTypeEnum) throws FileNotFoundException {
+        String originalFileName = uploadFile(multipartFile, fileTypeEnum).getData();
+        checkFile(originalFileName,fileTypeEnum);
+        return ResponseDTO.succMsg("修改成功");
+    }
+
     //生成文件名
     private String generateFileName(String originalFileName){
         //当前时间戳

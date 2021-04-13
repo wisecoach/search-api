@@ -9,11 +9,18 @@ import com.watering.domain.VO.EmployeeVO;
 import com.watering.domain.VO.EnterpriseVO;
 import com.watering.domain.VO.HrVO;
 import com.watering.domain.VO.ManagerVO;
+import com.watering.service.EmployeeService;
+import com.watering.service.EnterpriseService;
+import com.watering.service.HrService;
+import com.watering.service.ManagerService;
 import com.watering.utils.GetCurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileNotFoundException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,47 +34,49 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/info")
 public class BasicInfoController {
 
+    @Autowired
+    private HrService hrService;
+    @Autowired
+    private ManagerService managerService;
+    @Autowired
+    private EmployeeService employeeService;
+    @Autowired
+    private EnterpriseService enterpriseService;
+
     @ApiOperation("根据员工id查找员工基本信息")
     @GetMapping("/employee/{empid}")
-    public ResponseDTO<EmployeeVO> findEmployeeBasicInfo(@RequestParam Integer empid){
-        System.out.println(empid);
-        return ResponseDTO.succData(new EmployeeVO());
+    public ResponseDTO<EmployeeVO> findEmployeeBasicInfo(@PathVariable Integer empid){
+        return employeeService.findEmployeeBasicInfo(empid);
     }
 
     @ApiOperation("修改employee的基本信息")
     @PutMapping("/employee")
-    public ResponseDTO updateEmployeeBasicInfo(@RequestBody EmployeeUpdateBaseDTO employee){
-        return ResponseDTO.succ();
+    public ResponseDTO updateEmployeeBasicInfo(@RequestBody EmployeeUpdateBaseDTO employee) throws FileNotFoundException {
+        return employeeService.updateEmployeeBasicInfo(employee);
     }
 
     @ApiOperation("新建employee档案")
     @PostMapping("/employee")
-    public ResponseDTO addEmployeeBasicInfo(@RequestBody EmployeeAddDTO employee){
-        return ResponseDTO.succData(new Integer(1));
+    public ResponseDTO<Integer> addEmployeeBasicInfo(@RequestBody EmployeeAddDTO employee) throws FileNotFoundException {
+        return employeeService.addEmployeeBasicInfo(employee);
     }
 
     @ApiOperation("公司账号登录查询公司基本信息")
     @GetMapping("/enterprise")
     public ResponseDTO<EnterpriseVO> findEnterpriseBasicInfo(){
-        EnterpriseVO enterpriseVO = new EnterpriseVO();
-        BeanUtils.copyProperties(GetCurrentUser.getUser(),enterpriseVO);
-        return ResponseDTO.succData(enterpriseVO);
+        return enterpriseService.getInfo();
     }
 
     @ApiOperation("Hr账号登录查询Hr基本信息")
     @GetMapping("/hr")
     public ResponseDTO<HrVO> findHrBasicInfo(){
-        HrVO hrVO = new HrVO();
-        BeanUtils.copyProperties(GetCurrentUser.getUser(),hrVO);
-        return ResponseDTO.succData(hrVO);
+        return hrService.getInfo();
     }
 
     @ApiOperation("主管账号登录查询主管基本信息")
     @GetMapping("/manager")
     public ResponseDTO<ManagerVO> findManagerBasicInfo(){
-        ManagerVO managerVO =new ManagerVO();
-        BeanUtils.copyProperties(GetCurrentUser.getUser(),managerVO);
-        return ResponseDTO.succData(managerVO);
+        return managerService.getInfo();
     }
 
 }

@@ -15,7 +15,17 @@ public class KeyWord {
     private Type type;
 
     public enum Type{
-        NAME,MAJOR,DEPARTMENT
+        NAME("NAME"),MAJOR("MAJOR"),DEPARTMENT("DEPARTMENT");
+
+        private String type;
+
+        Type(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return type;
+        }
     }
 
 }

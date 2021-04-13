@@ -12,9 +12,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.DepartmentEntity">
-    insert into department (id, ctime, name, 
+    insert into department (id, ctime, name,
       entid)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR},
       #{entid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.DepartmentEntity">
@@ -32,5 +32,8 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, ctime, name, entid
     from department
+  </select>
+  <select id="listByEntidLikeName" resultMap="BaseResultMap">
+    select * from department where entid = #{entid} and name like concat('%',#{entid},'%')
   </select>
 </mapper>

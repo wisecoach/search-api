@@ -27,12 +27,17 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Enumeration;
 
 /**
  * Created with IntelliJ IDEA.
@@ -187,6 +192,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new InvalidSessionStrategy() {
             @Override
             public void onInvalidSessionDetected(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+                Enumeration em = httpServletRequest.getSession().getAttributeNames();  //得到session中所有的属性名
+                while (em.hasMoreElements()) {
+                    httpServletRequest.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
+                }
                 String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.SESSION_ERROR));
                 responseHandler(httpServletResponse,responseString);
             }

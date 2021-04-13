@@ -20,4 +20,9 @@ public interface CareerEntityMapper {
     List<CareerEntity> selectAll();
 
     int updateByPrimaryKey(CareerEntity record);
+
+    CareerEntity selectLastCareerByEmpId(Integer empid);
+
+
+
 }
