@@ -21,4 +21,7 @@ public interface DepartmentEntityMapper {
     int updateByPrimaryKey(DepartmentEntity record);
 
     List<DepartmentEntity> listByEntidLikeName(@Param("entid")Integer entid,@Param("name")String name);
+
+    List<DepartmentEntity> listByEntid(Integer entid);
+
 }

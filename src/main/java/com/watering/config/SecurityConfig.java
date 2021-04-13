@@ -187,18 +187,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     //session过期或无效处理
+    //好像过期会自动给一个sessionId
+    //无效不会自动生成
     @Bean
     public InvalidSessionStrategy invalidSessionStrategy(){
-        return new InvalidSessionStrategy() {
-            @Override
-            public void onInvalidSessionDetected(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
-                Enumeration em = httpServletRequest.getSession().getAttributeNames();  //得到session中所有的属性名
-                while (em.hasMoreElements()) {
-                    httpServletRequest.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
-                }
-                String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.SESSION_ERROR));
-                responseHandler(httpServletResponse,responseString);
-            }
+        return (httpServletRequest, httpServletResponse) -> {
+            String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.SESSION_ERROR));
+            responseHandler(httpServletResponse,responseString);
         };
     }
 

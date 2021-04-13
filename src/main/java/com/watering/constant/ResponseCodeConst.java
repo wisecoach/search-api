@@ -37,6 +37,8 @@ public class ResponseCodeConst {
 
     public static ResponseCodeConst JSON_FORMAT_ERROR = new ResponseCodeConst(105, "JSON格式或请求参数错误");
 
+    public static ResponseCodeConst PARAM_NOT_NULL = new ResponseCodeConst(106,"参数不能为空");
+
     protected int code;
 
     protected String msg;

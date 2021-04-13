@@ -48,6 +48,10 @@
     select * from manager where username = #{username}
   </select>
 
+  <select id="listByEntid" resultMap="BaseResultMap">
+    select * from manager where entid = #{entid}
+  </select>
+
 <!--  <select id="selectEntNameById" resultType="String">-->
 <!--    select enterprise.name from manager left join enterprise on manager.entid = enterprise.id where manager.id = #{id}-->
 <!--  </select>-->

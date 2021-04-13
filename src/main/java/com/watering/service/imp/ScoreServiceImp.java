@@ -11,6 +11,7 @@ import com.watering.dao.ScoreEntityMapper;
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.RoleDTO;
 import com.watering.domain.DTO.score.ScoreAddDTO;
+import com.watering.domain.VO.AvgScoreVO;
 import com.watering.domain.VO.ScoreVO;
 import com.watering.domain.entity.CareerEntity;
 import com.watering.domain.entity.HrEntity;
@@ -92,4 +93,18 @@ public class ScoreServiceImp implements ScoreService {
         PageInfo<ScoreVO> pageInfo = new PageInfo<>(scoreVOS);
         return ResponseDTO.succData(pageInfo);
     }
+
+    public ResponseDTO<AvgScoreVO> findAvgScore(Integer empid) {
+        float attitude = 0, ability = 0;
+        AvgScoreVO avgScoreVO = new AvgScoreVO();
+        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(empid);
+        for (CareerEntity careerEntity : careerEntities) {
+            attitude += careerEntity.getAttendance();
+            ability += careerEntity.getPerformance();
+        }
+        avgScoreVO.setAttitude(attitude / careerEntities.size());
+        avgScoreVO.setAbility(ability / careerEntities.size());
+        return ResponseDTO.succData(avgScoreVO);
+    }
+
 }
