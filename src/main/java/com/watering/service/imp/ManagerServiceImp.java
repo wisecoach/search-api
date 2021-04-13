@@ -9,6 +9,7 @@ import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.manager.ManagerAddDTO;
 import com.watering.domain.DTO.manager.ManagerUpdateDTO;
 import com.watering.domain.VO.ManagerVO;
+import com.watering.domain.entity.DepartmentEntity;
 import com.watering.domain.entity.EnterpriseEntity;
 import com.watering.domain.entity.HrEntity;
 import com.watering.domain.entity.ManagerEntity;
@@ -20,7 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -83,6 +86,21 @@ public class ManagerServiceImp implements ManagerService {
         managerVO.setDepartment(departmentEntityMapper.selectByPrimaryKey(managerEntity.getDepid()).getName());
         managerVO.setEnterprise(enterpriseEntityMapper.selectByPrimaryKey(managerEntity.getEntid()).getName());
         return ResponseDTO.succData(managerVO);
+    }
+
+    public ResponseDTO<List<ManagerVO>> managerSearch() {
+        List<ManagerVO> list = new ArrayList<>();
+        EnterpriseEntity enterpriseEntity = (EnterpriseEntity) GetCurrentUser.getUser();
+        List<ManagerEntity> managerEntities = managerEntityMapper.listByEntid(enterpriseEntity.getId());
+        for (ManagerEntity managerEntity : managerEntities) {
+            ManagerVO managerVO = new ManagerVO();
+            DepartmentEntity departmentEntity = departmentEntityMapper.selectByPrimaryKey(managerEntity.getDepid());
+            BeanUtils.copyProperties(managerEntity, managerVO);
+            managerVO.setEnterprise(enterpriseEntity.getName());
+            managerVO.setDepartment(departmentEntity.getName());
+            list.add(managerVO);
+        }
+        return ResponseDTO.succData(list);
     }
 
     private boolean checkUserName(String FullUserName){

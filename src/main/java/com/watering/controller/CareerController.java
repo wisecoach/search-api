@@ -8,10 +8,7 @@ import com.watering.domain.DTO.crime.CrimeAddDTO;
 import com.watering.domain.DTO.performance.PerformanceAddDTO;
 import com.watering.domain.DTO.score.ScoreAddDTO;
 import com.watering.domain.VO.*;
-import com.watering.service.impl.CareerServiceImpl;
-import com.watering.service.CareerService;
-import com.watering.service.EmployeeService;
-import com.watering.service.ScoreService;
+import com.watering.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,6 @@ import java.util.List;
 public class CareerController {
 
     @Autowired
-    private CareerServiceImpl careerService;
-  
-    @Autowired
     private ScoreService scoreService;
 
     @Autowired
@@ -43,6 +37,15 @@ public class CareerController {
 
     @Autowired
     private CareerService careerService;
+
+    @Autowired
+    private CrimeService crimeService;
+
+    @Autowired
+    private AttendanceService attendanceService;
+
+    @Autowired
+    private PerformanceService performanceService;
 
     @ApiOperation("根据empid查询员工所有经历")
     @GetMapping("/employee/{empid}")
@@ -53,13 +56,13 @@ public class CareerController {
     @ApiOperation("根据empid查询员工全部经历的两项平均分")
     @GetMapping("/avgscore/{empid}")
     public ResponseDTO<AvgScoreVO> findAvgScore(@PathVariable Integer empid){
-        return careerService.findAvgScore(empid);
+        return scoreService.findAvgScore(empid);
     }
 
     @ApiOperation("根据empid查询全部的违纪记录")
     @GetMapping("/crime/{empid}")
     public ResponseDTO<List<CrimeVO>> findAllCrime(@PathVariable Integer empid){
-        return careerService.findAllCrime(empid);
+        return crimeService.findAllCrime(empid);
     }
 
     @ApiOperation("根据carid查询该次经历信息")
@@ -72,19 +75,19 @@ public class CareerController {
     @GetMapping("/attendance/{carid}")
 
     public ResponseDTO<List<AttendanceVO>> findCurAttendance(@PathVariable Integer carid){
-        return careerService.findCurAttendance(carid);
+        return attendanceService.findCurAttendance(carid);
     }
 
     @ApiOperation("根据carid查询该经历绩效记录")
     @GetMapping("/performance/{carid}")
     public ResponseDTO<List<PerformanceVO>> findCurPerformance(@PathVariable Integer carid){
-         return careerService.findCurPerformance(carid);
+         return performanceService.findCurPerformance(carid);
     }
 
     @ApiOperation("根据carid查询该经历违纪记录")
     @GetMapping("/curcrime/{carid}")
     public ResponseDTO<List<CrimeVO>> findCurCrime(@PathVariable Integer carid){
-        return ResponseDTO.succData(new ArrayList<CrimeVO>());
+        return crimeService.findCurCrime(carid);
     }
 
     @ApiOperation("根据carid,page,pageSize查询评价分页")
