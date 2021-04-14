@@ -16,13 +16,9 @@
         from crime
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.watering.domain.entity.CrimeEntity">
-        insert into crime (id, ctime, empid,
-                           manid, rank, critime,
-                           carid, detail)
-        values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER},
-                #{manid,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, #{critime,jdbcType=TIMESTAMP},
-                #{carid,jdbcType=INTEGER}, #{detail,jdbcType=LONGVARCHAR})
+    <insert id="insert" parameterType="com.watering.domain.entity.CrimeEntity" >
+        insert into crime (id,ctime,empid,manid,detail,`rank`,critime,carid)
+        values (#{id,jdbcType=INTEGER},#{ctime,jdbcType=TIMESTAMP},#{empid,jdbcType=INTEGER},#{manid,jdbcType=INTEGER},#{detail,jdbcType=LONGVARCHAR},#{rank,jdbcType=INTEGER},#{critime,jdbcType=TIMESTAMP},#{carid,jdbcType=INTEGER})
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.CrimeEntity">
         update crime

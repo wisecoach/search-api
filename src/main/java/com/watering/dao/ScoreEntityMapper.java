@@ -21,4 +21,6 @@ public interface ScoreEntityMapper {
 
     List<ScoreEntity> listByCarid(Integer carid);
 
+    ScoreEntity selectByCarid(Integer carid);
+
 }
