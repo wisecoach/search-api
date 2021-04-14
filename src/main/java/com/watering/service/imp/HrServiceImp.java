@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -77,6 +79,20 @@ public class HrServiceImp implements HrService {
         BeanUtils.copyProperties(hrEntity,hrVO);
         hrVO.setEnterprise(enterpriseEntityMapper.selectByPrimaryKey(hrEntity.getEntid()).getName());
         return ResponseDTO.succData(hrVO);
+    }
+
+
+    public ResponseDTO<List<HrVO>> hrSearch() {
+        List<HrVO> list = new ArrayList<>();
+        EnterpriseEntity enterpriseEntity = (EnterpriseEntity) GetCurrentUser.getUser();
+        List<HrEntity> hrEntities = hrEntityMapper.listByEntid(enterpriseEntity.getId());
+        for (HrEntity hrEntity : hrEntities) {
+            HrVO hrVO = new HrVO();
+            BeanUtils.copyProperties(hrEntity, hrVO);
+            hrVO.setEnterprise(enterpriseEntity.getName());
+            list.add(hrVO);
+        }
+        return ResponseDTO.succData(list);
     }
 
     private boolean checkUserName(String FullUserName){

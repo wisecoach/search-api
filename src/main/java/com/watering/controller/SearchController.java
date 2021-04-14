@@ -8,6 +8,9 @@ import com.watering.domain.VO.EmployeeSimpleVO;
 import com.watering.domain.VO.HrVO;
 import com.watering.domain.VO.ManagerVO;
 import com.watering.domain.entity.DepartmentEntity;
+import com.watering.service.DepartmentService;
+import com.watering.service.HrService;
+import com.watering.service.ManagerService;
 import com.watering.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +34,15 @@ public class SearchController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private HrService hrService;
+
+    @Autowired
+    private ManagerService managerService;
+
     @ApiOperation("企业内员工查询")
     @PostMapping("/inner")
     public ResponseDTO<PageInfo<EmployeeSimpleVO>> innerEmployeeSearch(@RequestBody SearchDTO search){
@@ -46,19 +58,19 @@ public class SearchController {
     @ApiOperation("查找hr 再看看要不要改模型")
     @GetMapping("/hr")
     public ResponseDTO<List<HrVO>> hrSearch(){
-        return null;
+        return hrService.hrSearch();
     }
 
     @ApiOperation("查找manager 再看看要不要改模型")
     @GetMapping("/manager")
     public ResponseDTO<List<ManagerVO>> managerSearch(){
-        return null;
+        return managerService.managerSearch();
     }
 
     @ApiOperation("查找所有部门")
     @GetMapping("/department")
     public ResponseDTO<List<DepartmentEntity>> departmentSearch(){
-        return null;
+        return departmentService.departmentSearch();
     }
 
 }

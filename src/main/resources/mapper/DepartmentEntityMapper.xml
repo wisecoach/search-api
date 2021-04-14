@@ -36,4 +36,9 @@
   <select id="listByEntidLikeName" resultMap="BaseResultMap">
     select * from department where entid = #{entid} and name like concat('%',#{entid},'%')
   </select>
+
+  <select id="listByEntid" resultMap="BaseResultMap">
+    select * from department where entid = #{entid}
+  </select>
+
 </mapper>

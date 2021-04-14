@@ -5,6 +5,8 @@ import com.watering.domain.DTO.manager.ManagerAddDTO;
 import com.watering.domain.DTO.manager.ManagerUpdateDTO;
 import com.watering.domain.VO.ManagerVO;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -19,5 +21,7 @@ public interface ManagerService {
     public ResponseDTO updateManger(ManagerUpdateDTO managerUpdateDTO);
 
     public ResponseDTO<ManagerVO> getInfo();
+
+    public ResponseDTO<List<ManagerVO>> managerSearch();
 
 }

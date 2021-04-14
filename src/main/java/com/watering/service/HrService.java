@@ -5,6 +5,8 @@ import com.watering.domain.DTO.hr.HrAddDTO;
 import com.watering.domain.DTO.hr.HrUpdateDTO;
 import com.watering.domain.VO.HrVO;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -17,4 +19,5 @@ public interface HrService {
     public ResponseDTO createHr(HrAddDTO hrAddDTO);
     public ResponseDTO updateHr(HrUpdateDTO hrUpdateDTO);
     public ResponseDTO<HrVO> getInfo();
+    public ResponseDTO<List<HrVO>> hrSearch();
 }

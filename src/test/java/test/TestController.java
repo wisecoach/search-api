@@ -4,6 +4,14 @@ import com.watering.ApiMain8081;
 import com.watering.constant.FileTypeEnum;
 import com.watering.dao.*;
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.DTO.attendance.AttendanceAddDTO;
+import com.watering.domain.DTO.crime.CrimeAddDTO;
+import com.watering.domain.DTO.department.DepartmentDTO;
+import com.watering.domain.DTO.department.DepartmentUpdateDTO;
+import com.watering.domain.DTO.performance.PerformanceAddDTO;
+import com.watering.domain.DTO.search.KeyWord;
+import com.watering.domain.VO.*;
+import com.watering.domain.entity.*;
 import com.watering.domain.DTO.employee.EmployeeUpdateBaseDTO;
 import com.watering.domain.DTO.search.KeyWord;
 import com.watering.domain.DTO.search.SearchDTO;
@@ -13,6 +21,7 @@ import com.watering.domain.VO.HrVO;
 import com.watering.domain.entity.*;
 import com.watering.domain.VO.ManagerVO;
 import com.watering.service.FileUploadService;
+import com.watering.utils.GetCurrentUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +71,12 @@ public class TestController {
     private ScoreEntityMapper scoreEntityMapper;
     @Autowired
     private FileUploadService fileUploadService;
+    @Autowired
+    private AttendanceEntityMapper attendanceEntityMapper;
+
 
     @Test
-    public void test(){
+    public void test() {
         List lists = new ArrayList();
         lists.add(mapper.selectAll());
         lists.add(careerEntityMapper.selectAll());
@@ -80,23 +92,25 @@ public class TestController {
         lists.add(scoreEntityMapper.selectAll());
         System.out.println(lists);
     }
-//    @Test
-//    public void test1(){
-//        ManagerEntity managerEntity = new ManagerEntity(null);
-//        ManagerVO managerVO =new ManagerVO(2,new Date(),null,null,null,null,null);
-//        BeanUtils.copyProperties(managerEntity,managerVO);
-//        System.out.println(managerVO);
-//    }
 
     @Test
-    public void test2(){
-        System.out.println(UUID.randomUUID().toString().replace("-",""));
-        System.out.println( "apk.java".substring("apk.java".lastIndexOf(".")));
-        System.out.println( "apk.java".substring(0,"apk.java".lastIndexOf(".")));
+    public void test1() {
+
+        ManagerEntity managerEntity = new ManagerEntity(null);
+        ManagerVO managerVO = new ManagerVO(2, new Date(), null, null, null, null, null);
+        BeanUtils.copyProperties(managerEntity, managerVO);
+        System.out.println(managerVO);
     }
 
     @Test
-    public void test3(){
+    public void test2() {
+        System.out.println(UUID.randomUUID().toString().replace("-", ""));
+        System.out.println("apk.java".substring("apk.java".lastIndexOf(".")));
+        System.out.println("apk.java".substring(0, "apk.java".lastIndexOf(".")));
+    }
+
+    @Test
+    public void test3() {
         HrEntity hrEntity = hrEntityMapper.selectByPrimaryKey(1);
         System.out.println(hrEntity);
 //        ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(1);
@@ -104,29 +118,28 @@ public class TestController {
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         System.out.println(new BCryptPasswordEncoder().encode("zhaojing"));
         System.out.println(new BCryptPasswordEncoder().encode("xhjy"));
         System.out.println(new BCryptPasswordEncoder().encode("zhuzhen"));
         System.out.println(new BCryptPasswordEncoder().encode("zhangdudu"));
     }
 
-    @Test
-    public void test5(){
+    public void test5() {
         EmployeeEntity employeeEntity = employeeEntityMapper.selectByPrimaryKey(1);
         String enterpriseName = null;
         String departmentName = null;
         HrVO hrVO = null;
-        if(employeeEntity.isHired()){
+        if (employeeEntity.isHired()) {
             hrVO = new HrVO();
             enterpriseName = enterpriseEntityMapper.selectByPrimaryKey(employeeEntity.getEntid()).getName();
             departmentName = departmentEntityMapper.selectByPrimaryKey(employeeEntity.getDepid()).getName();
-            HrEntity hrEntity =hrEntityMapper.selectByPrimaryKey(employeeEntity.getHrid());
-            BeanUtils.copyProperties(hrEntity,hrVO);
+            HrEntity hrEntity = hrEntityMapper.selectByPrimaryKey(employeeEntity.getHrid());
+            BeanUtils.copyProperties(hrEntity, hrVO);
             hrVO.setEnterprise(enterpriseName);
         }
-        EmployeeVO employeeVO =new EmployeeVO();
-        BeanUtils.copyProperties(employeeEntity,employeeVO);
+        EmployeeVO employeeVO = new EmployeeVO();
+        BeanUtils.copyProperties(employeeEntity, employeeVO);
         employeeVO.setEnterprise(enterpriseName);
         employeeVO.setDepartment(departmentName);
         employeeVO.setHr(hrVO);
@@ -148,21 +161,21 @@ public class TestController {
         EmployeeEntity employeeEntity = employeeEntityMapper.selectByPrimaryKey(employeeUpdateBaseDTO.getId());
         String oldPhoto = employeeEntity.getPhoto();
         String oldResume = employeeEntity.getResume();
-        BeanUtils.copyProperties(employeeUpdateBaseDTO,employeeEntity);
-        if(null!=newPhoto){
-            if(fileUploadService.checkFile(newPhoto, FileTypeEnum.IMG_PHOTO))
+        BeanUtils.copyProperties(employeeUpdateBaseDTO, employeeEntity);
+        if (null != newPhoto) {
+            if (fileUploadService.checkFile(newPhoto, FileTypeEnum.IMG_PHOTO))
                 newPhoto = FileTypeEnum.IMG_PHOTO.getUrl() + newPhoto;
             else
                 newPhoto = oldPhoto;
-        }else{
+        } else {
             newPhoto = oldPhoto;
         }
-        if(null!=newResume){
-            if(fileUploadService.checkFile(newResume,FileTypeEnum.IMG_RESUME))
+        if (null != newResume) {
+            if (fileUploadService.checkFile(newResume, FileTypeEnum.IMG_RESUME))
                 newResume = FileTypeEnum.IMG_RESUME.getUrl() + newResume;
             else
                 newResume = oldResume;
-        } else{
+        } else {
             newResume = oldResume;
         }
         employeeEntity.setPhoto(newPhoto);
@@ -171,7 +184,7 @@ public class TestController {
     }
 
     @Test
-    public void test6(){
+    public void test6() {
         EmployeeEntity employeeEntity = new EmployeeEntity();
         employeeEntityMapper.insert(employeeEntity);
         Integer id = employeeEntity.getId();
@@ -179,19 +192,19 @@ public class TestController {
     }
 
     @Test
-    public void test7(){
+    public void test7() {
         System.out.println(new Date());
     }
 
     @Test
-    public void test8(){
+    public void test8() {
         SearchDTO searchDTO = new SearchDTO();
         KeyWord keyWord = new KeyWord();
         keyWord.setType(KeyWord.Type.DEPARTMENT);
         keyWord.setValue("1,2");
-        SearchFilter searchFilter =new SearchFilter();
-        searchFilter.setStart(new Date(92,5,10));
-        searchFilter.setEnd(new Date(93,12,30));
+        SearchFilter searchFilter = new SearchFilter();
+        searchFilter.setStart(new Date(92, 5, 10));
+        searchFilter.setEnd(new Date(93, 12, 30));
         searchFilter.setType(SearchFilter.Type.BIRTH);
         List<SearchFilter> list = new ArrayList<>();
         list.add(searchFilter);
@@ -206,9 +219,9 @@ public class TestController {
 
 
     @Test
-    public void test9(){
-        Long a = 1000*60*60*24*365L;
-        a = a*30;
+    public void test9() {
+        Long a = 1000 * 60 * 60 * 24 * 365L;
+        a = a * 30;
         System.out.println(a);
 //        System.out.println("3-".substring(0,"3-".lastIndexOf("-")));
 //        Date date1 = new Date(92,5,10);
@@ -216,7 +229,211 @@ public class TestController {
 //        System.out.println(date2.getTime()-date1.getTime());
 //        Double a = Double.valueOf((date2.getTime()-date1.getTime())/(1000*60*60*24*365L));
 //        System.out.println(a);
+
     }
 
+    @Test
+    public void findAvgScore() {
+        float attitude = 0, ability = 0;
+        AvgScoreVO avgScoreVO = new AvgScoreVO();
+        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(2);
+        System.out.println(careerEntities.size());
+        for (CareerEntity careerEntity : careerEntities) {
+            attitude += careerEntity.getAttendance();
+            ability += careerEntity.getPerformance();
+        }
+        avgScoreVO.setAttitude(attitude / careerEntities.size());
+        avgScoreVO.setAbility(ability / careerEntities.size());
+        System.out.println(avgScoreVO);
+    }
 
+    @Test
+    public void findAllCrime() {
+        List<CrimeVO> list = new ArrayList<>();
+        List<CrimeEntity> crimeEntities = crimeEntityMapper.selectAllByEmpid(2);
+        for (CrimeEntity crimeEntity : crimeEntities) {
+            CrimeVO crimeVO = new CrimeVO();
+            BeanUtils.copyProperties(crimeEntity, crimeVO);
+            crimeVO.setManager(managerEntityMapper.selectByPrimaryKey(crimeEntity.getManid()).getName());
+            list.add(crimeVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findCurAttendance() {
+        List<AttendanceVO> list = new ArrayList<>();
+        List<AttendanceEntity> attendanceEntities = mapper.selectAllByCarid(1);
+        for (AttendanceEntity attendanceEntity : attendanceEntities) {
+            AttendanceVO attendanceVO = new AttendanceVO();
+            ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(attendanceEntity.getManid());
+            BeanUtils.copyProperties(attendanceEntity, attendanceVO);
+            attendanceVO.setManager(managerEntity.getName());
+            list.add(attendanceVO);
+
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findCurPerformance() {
+        List<PerformanceVO> list = new ArrayList<>();
+        List<PerformanceEntity> performanceEntities = performanceEntityMapper.selectAllByCarid(1);
+        for (PerformanceEntity performanceEntity : performanceEntities) {
+            PerformanceVO performanceVO = new PerformanceVO();
+            ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(performanceEntity.getManid());
+            BeanUtils.copyProperties(performanceEntity, performanceVO);
+            performanceVO.setManager(managerEntity.getName());
+            list.add(performanceVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void findCurCrime() {
+        List<CrimeVO> list = new ArrayList<>();
+        List<CrimeEntity> crimeEntities = crimeEntityMapper.selectAllByCarid(2);
+        for (CrimeEntity crimeEntity : crimeEntities) {
+            CrimeVO crimeVO = new CrimeVO();
+            ManagerEntity managerEntity = managerEntityMapper.selectByPrimaryKey(crimeEntity.getManid());
+            BeanUtils.copyProperties(crimeEntity, crimeVO);
+            crimeVO.setManager(managerEntity.getName());
+            list.add(crimeVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void hrSearch() {
+        List<HrVO> list = new ArrayList<>();
+        List<HrEntity> hrEntities = hrEntityMapper.selectAll();
+        for (HrEntity hrEntity : hrEntities) {
+            HrVO hrVO = new HrVO();
+            EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(hrEntity.getEntid());
+            BeanUtils.copyProperties(hrEntity, hrVO);
+            hrVO.setEnterprise(enterpriseEntity.getName());
+            list.add(hrVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void managerSearch() {
+        List<ManagerVO> list = new ArrayList<>();
+        List<ManagerEntity> managerEntities = managerEntityMapper.selectAll();
+        for (ManagerEntity managerEntity : managerEntities) {
+            ManagerVO managerVO = new ManagerVO();
+            EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(managerEntity.getEntid());
+            DepartmentEntity departmentEntity = departmentEntityMapper.selectByPrimaryKey(managerEntity.getDepid());
+            BeanUtils.copyProperties(managerEntity, managerVO);
+            managerVO.setEnterprise(enterpriseEntity.getName());
+            managerVO.setDepartment(departmentEntity.getName());
+            list.add(managerVO);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void departmentSearch() {
+        List<DepartmentEntity> list = departmentEntityMapper.selectAll();
+        System.out.println(list);
+    }
+
+    @Test
+    public void findAllCareer() {
+        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(2);
+        List<CareerVO> list = new ArrayList<>();
+        for (CareerEntity careerEntity : careerEntities) {
+            CareerVO careerVO = new CareerVO();
+            BeanUtils.copyProperties(careerEntity, careerVO);
+            EnterpriseEntity enterpriseEntity = enterpriseEntityMapper.selectByPrimaryKey(careerEntity.getEntid());
+            DepartmentEntity departmentEntity = departmentEntityMapper.selectByPrimaryKey(careerEntity.getDepid());
+            OccupationEntity occupationEntity = occupationEntityMapper.selectByPrimaryKey(careerEntity.getOccid());
+            careerVO.setEnterprise(enterpriseEntity.getName());
+            careerVO.setDepartment(departmentEntity.getName());
+            careerVO.setOccupation(occupationEntity.getName());
+            list.add(careerVO);
+        }
+        System.out.println(list);
+
+    }
+
+    @Test
+    public void findCurAvgScore() {
+        AvgScoreVO avgScoreVO = new AvgScoreVO();
+        ScoreEntity scoreEntity = scoreEntityMapper.selectByCarid(1);
+        avgScoreVO.setAttitude(scoreEntity.getAttitude());
+        avgScoreVO.setAbility(scoreEntity.getAbility());
+        System.out.println(avgScoreVO);
+    }
+
+    @Test
+    public void performanceInput() {
+        PerformanceEntity performanceEntity = new PerformanceEntity();
+        performanceEntity.setCtime(new Date());
+        performanceEntity.setEmpid(9);
+        performanceEntity.setManid(9);
+        performanceEntity.setPerformance(96);
+        performanceEntity.setStime(new Date());
+        performanceEntity.setEtime(new Date());
+        performanceEntity.setCarid(9);
+
+        performanceEntityMapper.insert(performanceEntity);
+        System.out.println("插入绩效成功");
+
+    }
+
+    @Test
+    public void attendanceInput() {
+        AttendanceEntity attendanceEntity = new AttendanceEntity();
+        attendanceEntity.setCtime(new Date());
+        attendanceEntity.setEmpid(9);
+        attendanceEntity.setManid(9);
+        attendanceEntity.setAttendance(98.0);
+        attendanceEntity.setStime(new Date());
+        attendanceEntity.setEtime(new Date());
+
+        attendanceEntity.setCarid(9);
+
+        attendanceEntityMapper.insert(attendanceEntity);
+        System.out.println("插入出勤成功");
+    }
+
+    @Test
+    public void crimeInput() {
+        CrimeEntity crimeEntity = new CrimeEntity();
+        crimeEntity.setCtime(new Date());
+        crimeEntity.setEmpid(8);
+        crimeEntity.setManid(8);
+        crimeEntity.setDetail("abcdef");
+        crimeEntity.setRank(1);
+        crimeEntity.setCritime(new Date());
+        crimeEntity.setCarid(8);
+        crimeEntityMapper.insert(crimeEntity);
+        System.out.println("插入重大过错成功！");
+    }
+
+    @Test
+    public void addDepartment(){
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+
+        departmentEntity.setCtime(new Date());
+        departmentEntity.setName("随便");
+        departmentEntity.setEntid(9);
+        departmentEntityMapper.insert(departmentEntity);
+        System.out.println("加入新部门成功");
+    }
+
+    @Test
+
+    public void updateDepartment(){
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        departmentEntity.setId(9);
+        departmentEntity.setCtime(new Date());
+        departmentEntity.setName("搞笑");
+        departmentEntity.setEntid(9);
+        departmentEntityMapper.updateByPrimaryKey(departmentEntity);
+        System.out.println("更改部门名成功");
+    }
 }
+

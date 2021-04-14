@@ -48,4 +48,7 @@
   <select id="listByCarid" resultMap="BaseResultMap">
     select * from score where carid = #{carid} order by id desc
   </select>
+  <select id="selectByCarid" resultMap="BaseResultMap">
+    select * from score where carid = #{carid}
+  </select>
 </mapper>
