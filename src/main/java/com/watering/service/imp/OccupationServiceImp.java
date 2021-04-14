@@ -47,6 +47,10 @@ public class OccupationServiceImp implements OccupationService {
         }
     }
 
+    public ResponseDTO<OccupationEntity> findOccupation(Integer occid){
+        return ResponseDTO.succData(occupationEntityMapper.selectByPrimaryKey(occid));
+    }
+
     @Override
     public ResponseDTO<List<OccupationEntity>> listSonOccupation(Integer occid) {
         List<OccupationEntity> occupationEntities = occupationEntityMapper.listSonById(occid);
@@ -60,7 +64,6 @@ public class OccupationServiceImp implements OccupationService {
     }
 
     //输入为自己的id
-    //
     public ResponseDTO<List<OccupationEntity>> listParentOccupation(Integer occid){
         OccupationEntity occupationEntity = occupationEntityMapper.selectByPrimaryKey(occid);
         Integer pid = occupationEntity.getPid();

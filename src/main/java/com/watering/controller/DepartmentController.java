@@ -2,6 +2,7 @@ package com.watering.controller;
 
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.department.DepartmentDTO;
+import com.watering.domain.DTO.department.DepartmentUpdateDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class DepartmentController {
 
     @ApiOperation("修改部门")
     @PutMapping("")
-    public ResponseDTO updateDepartment(@RequestBody DepartmentDTO department){
+    public ResponseDTO updateDepartment(@RequestBody DepartmentUpdateDTO department){
         return null;
     }
 

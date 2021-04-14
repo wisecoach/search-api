@@ -3,7 +3,17 @@ package com.watering.service;
 import com.alibaba.druid.util.StringUtils;
 import com.watering.constant.FileResponseCodeConst;
 import com.watering.constant.FileTypeEnum;
+import com.watering.constant.ResponseCodeConst;
+import com.watering.dao.EnterpriseEntityMapper;
+import com.watering.dao.HrEntityMapper;
+import com.watering.dao.ManagerEntityMapper;
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.DTO.RoleDTO;
+import com.watering.domain.entity.EnterpriseEntity;
+import com.watering.domain.entity.HrEntity;
+import com.watering.domain.entity.ManagerEntity;
+import com.watering.utils.GetCurrentUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +39,15 @@ public class FileUploadService {
 
     @Value("${upload-file-parent-path}")
     private String parentPath;
+
+    @Autowired
+    private HrEntityMapper hrEntityMapper;
+
+    @Autowired
+    private ManagerEntityMapper managerEntityMapper;
+
+    @Autowired
+    private EnterpriseEntityMapper enterpriseEntityMapper;
 
     //默认大小10M
     private static final Long DEFAULT_SIZE = 10 * 1024 * 1024L;
@@ -98,8 +117,26 @@ public class FileUploadService {
 
     public ResponseDTO updateFile(MultipartFile multipartFile, FileTypeEnum fileTypeEnum) throws FileNotFoundException {
         String originalFileName = uploadFile(multipartFile, fileTypeEnum).getData();
-        checkFile(originalFileName,fileTypeEnum);
-        return ResponseDTO.succMsg("修改成功");
+        if(checkFile(originalFileName,fileTypeEnum)){
+            String fileUrl = FileTypeEnum.IMG_PHOTO.getUrl() + originalFileName ;
+            String role = GetCurrentUser.getUserRole();
+            Object object = GetCurrentUser.getUser();
+            if(role.equals(RoleDTO.Type.ROLE_HR.getType())){
+                HrEntity hrEntity = (HrEntity) object;
+                hrEntity.setPhoto(fileUrl);
+                hrEntityMapper.updateByPrimaryKey(hrEntity);
+            }else if(role.equals(RoleDTO.Type.ROLE_MANAGER.getType())){
+                ManagerEntity managerEntity = (ManagerEntity) object;
+                managerEntity.setPhoto(fileUrl);
+                managerEntityMapper.updateByPrimaryKey(managerEntity);
+            }else{
+                EnterpriseEntity enterpriseEntity = (EnterpriseEntity) object;
+                enterpriseEntity.setPhoto(fileUrl);
+                enterpriseEntityMapper.updateByPrimaryKey(enterpriseEntity);
+            }
+            return ResponseDTO.succMsg("修改成功");
+        }
+        return ResponseDTO.wrap(FileResponseCodeConst.FILE_EMPTY);
     }
 
     //生成文件名

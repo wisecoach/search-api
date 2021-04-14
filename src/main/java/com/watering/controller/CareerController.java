@@ -103,8 +103,8 @@ public class CareerController {
     }
 
     @ApiOperation("根据carid查询该经历两项平均分")
-    @GetMapping("/curavgscore/{empid}")
-    public ResponseDTO<AvgScoreVO> findCurAvgScore(@PathVariable Integer empid){
+    @GetMapping("/curavgscore/{carid}")
+    public ResponseDTO<AvgScoreVO> findCurAvgScore(@PathVariable Integer carid){
         return ResponseDTO.succData(new AvgScoreVO());
     }
 

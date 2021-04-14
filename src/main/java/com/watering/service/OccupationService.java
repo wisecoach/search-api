@@ -17,6 +17,7 @@ public interface OccupationService {
 
     void addCount(Integer occid);
     void subtractCount(Integer occid);
+    public ResponseDTO<OccupationEntity> findOccupation(Integer occid);
     ResponseDTO<List<OccupationEntity>> listSonOccupation(Integer occid);
     ResponseDTO<List<OccupationEntity>> hotOccupation();
     ResponseDTO<List<OccupationEntity>> listParentOccupation(Integer occid);
