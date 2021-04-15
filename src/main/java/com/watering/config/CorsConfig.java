@@ -26,7 +26,7 @@ public class CorsConfig {
         };
     }
 
-    @Bean
+    // @Bean
     public TomcatContextCustomizer sameSiteCookiesConfig(){
         return context -> {
             Rfc6265CookieProcessor cookieProcessor = new Rfc6265CookieProcessor();
