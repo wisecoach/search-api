@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
 
+
     @Autowired
     private UploadConfig uploadConfig;
 

@@ -24,7 +24,9 @@ spring:
   jackson:
     time-zone: GMT+8
 
-upload-file-parent-path: /upload/
+upload-file-parent-path: /mnt/D/search/static/upload/
+static-server-root: http://localhost:8081/
 
-default-photo-hr: /head_img/hr.jpg
-default-photo-manager: /head_img/manager.jpg
+
+default-photo-hr: http://localhost:8081/head_img/hr.jpg
+default-photo-manager: http://localhost:8081/head_img/manager.jpg

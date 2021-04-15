@@ -142,7 +142,7 @@ public class FileUploadService {
     //生成文件名
     private String generateFileName(String originalFileName){
         //当前时间戳
-        String time = String.valueOf(new Date().getTime());
+        String time = String.valueOf(System.currentTimeMillis());
         //获得uuid
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         //获得文件扩展名后缀

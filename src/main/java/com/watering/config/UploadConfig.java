@@ -22,6 +22,9 @@ public class UploadConfig {
     @Value("${upload-file-parent-path}")
     private String parentPath;
 
+    @Value("${static-server-root}")
+    private String staticServerRoot;
+
     //获得绝对路径
     public String getAbsolutePath(FileTypeEnum fileTypeEnum){
         File file = new File(parentPath+fileTypeEnum.getPath());
@@ -33,8 +36,7 @@ public class UploadConfig {
 
     //获得访问的Url
     public String getUrl(FileTypeEnum fileTypeEnum){
-//        System.out.println(fileTypeEnum.getUrl());
-        return fileTypeEnum.getUrl()+"**";
+        return fileTypeEnum.getUrl().replaceFirst(staticServerRoot, "")+"**";
     }
 
 }

@@ -1,5 +1,7 @@
 package com.watering.constant;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -10,8 +12,8 @@ package com.watering.constant;
 public enum FileTypeEnum {
 
 
-    IMG_RESUME("img/resume","temp/img","/resume_img/"),
-    IMG_PHOTO("img/photo","temp/img","/head_img/");
+    IMG_RESUME("img/resume","temp/img","http://localhost:8081/resume_img/"),
+    IMG_PHOTO("img/photo","temp/img","http://localhost:8081/head_img/");
 
     //存储的子路径
     private String path;
