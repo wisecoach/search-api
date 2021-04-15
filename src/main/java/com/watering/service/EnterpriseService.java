@@ -12,4 +12,5 @@ import com.watering.domain.VO.EnterpriseVO;
  */
 public interface EnterpriseService {
     public ResponseDTO<EnterpriseVO> getInfo();
+    public ResponseDTO checkUserName(String username);
 }

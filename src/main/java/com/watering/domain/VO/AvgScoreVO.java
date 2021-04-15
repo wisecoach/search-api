@@ -16,8 +16,8 @@ import lombok.Data;
 public class AvgScoreVO {
     //态度评分
     @ApiModelProperty("态度评分")
-    private float attitude;
+    private Double attitude;
     //能力评分
     @ApiModelProperty("能力评分")
-    private float ability;
+    private Double ability;
 }

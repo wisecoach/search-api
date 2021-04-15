@@ -1,6 +1,7 @@
 package com.watering.service;
 
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.DTO.crime.CrimeAddDTO;
 import com.watering.domain.VO.CrimeVO;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface CrimeService {
     public ResponseDTO<List<CrimeVO>> findAllCrime(Integer empid);
 
     public ResponseDTO<List<CrimeVO>> findCurCrime(Integer carid);
+
+    public ResponseDTO crimeInput(CrimeAddDTO crime);
 
 }

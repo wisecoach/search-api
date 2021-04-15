@@ -20,5 +20,6 @@ public interface ScoreService {
     public ResponseDTO<PageInfo<ScoreVO>> pageCurScore(Integer carid,Integer page,Integer pageSize);
 
     public ResponseDTO<AvgScoreVO> findAvgScore(Integer empid);
+    public ResponseDTO<AvgScoreVO> findCurAvgScore(Integer carid);
 
 }

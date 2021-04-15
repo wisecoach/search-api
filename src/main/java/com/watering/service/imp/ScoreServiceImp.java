@@ -94,16 +94,32 @@ public class ScoreServiceImp implements ScoreService {
         return ResponseDTO.succData(pageInfo);
     }
 
+
     public ResponseDTO<AvgScoreVO> findAvgScore(Integer empid) {
-        float attitude = 0, ability = 0;
+        Double attitude = new Double(0);
+        Double ability = new Double(0);
         AvgScoreVO avgScoreVO = new AvgScoreVO();
-        List<CareerEntity> careerEntities = careerEntityMapper.selectAllByEmpid(empid);
-        for (CareerEntity careerEntity : careerEntities) {
-            attitude += careerEntity.getAttendance();
-            ability += careerEntity.getPerformance();
+        List<ScoreEntity> scoreEntities = scoreEntityMapper.listByEmpid(empid);
+        for (ScoreEntity scoreEntity : scoreEntities) {
+            attitude += scoreEntity.getAttitude();
+            ability += scoreEntity.getAbility();
         }
-        avgScoreVO.setAttitude(attitude / careerEntities.size());
-        avgScoreVO.setAbility(ability / careerEntities.size());
+        avgScoreVO.setAttitude(attitude / scoreEntities.size());
+        avgScoreVO.setAbility(ability / scoreEntities.size());
+        return ResponseDTO.succData(avgScoreVO);
+    }
+
+    public ResponseDTO<AvgScoreVO> findCurAvgScore(Integer carid){
+        Double attitude = new Double(0);
+        Double ability = new Double(0);
+        AvgScoreVO avgScoreVO = new AvgScoreVO();
+        List<ScoreEntity> scoreEntities = scoreEntityMapper.listByCarid(carid);
+        for (ScoreEntity scoreEntity : scoreEntities) {
+            attitude += scoreEntity.getAttitude();
+            ability += scoreEntity.getAbility();
+        }
+        avgScoreVO.setAttitude(attitude / scoreEntities.size());
+        avgScoreVO.setAbility(ability / scoreEntities.size());
         return ResponseDTO.succData(avgScoreVO);
     }
 

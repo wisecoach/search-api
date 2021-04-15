@@ -105,7 +105,7 @@ public class CareerController {
     @ApiOperation("根据carid查询该经历两项平均分")
     @GetMapping("/curavgscore/{carid}")
     public ResponseDTO<AvgScoreVO> findCurAvgScore(@PathVariable Integer carid){
-        return ResponseDTO.succData(new AvgScoreVO());
+        return scoreService.findCurAvgScore(carid);
     }
 
     @ApiOperation("录用员工")
@@ -123,19 +123,19 @@ public class CareerController {
     @ApiOperation("录入绩效记录")
     @PostMapping("/performance")
     public ResponseDTO performanceInput(@RequestBody PerformanceAddDTO performance){
-        return ResponseDTO.succ();
+        return performanceService.performanceInput(performance);
     }
 
     @ApiOperation("录入考勤记录")
     @PostMapping("/attendance")
     public ResponseDTO attendanceInput(@RequestBody AttendanceAddDTO attendance){
-        return ResponseDTO.succ();
+        return attendanceService.attendanceInput(attendance);
     }
 
     @ApiOperation("录入违纪记录")
     @PostMapping("/crime")
     public ResponseDTO crimeInput(@RequestBody CrimeAddDTO crime){
-        return ResponseDTO.succ();
+        return crimeService.crimeInput(crime);
     }
 
 

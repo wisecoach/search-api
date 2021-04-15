@@ -24,8 +24,5 @@ public interface CareerService {
 
     public ResponseDTO<CareerVO> findCareer(Integer carid);
     public ResponseDTO<List<CareerVO>> findAllCareer(Integer empid);
-    public ResponseDTO<AvgScoreVO> findCurAvgScore( Integer carid);
-    public ResponseDTO performanceInput(PerformanceAddDTO performance);
-    public ResponseDTO attendanceInput(AttendanceAddDTO attendance);
-    public ResponseDTO crimeInput(CrimeAddDTO crime);
+
 }

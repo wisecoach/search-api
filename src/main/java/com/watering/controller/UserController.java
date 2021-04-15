@@ -1,6 +1,7 @@
 package com.watering.controller;
 
 import com.watering.constant.LoginResponseCodeConst;
+import com.watering.dao.EnterpriseEntityMapper;
 import com.watering.domain.DTO.RoleDTO;
 import com.watering.domain.DTO.hr.HrAddDTO;
 import com.watering.domain.DTO.hr.HrUpdateDTO;
@@ -10,6 +11,8 @@ import com.watering.domain.DTO.manager.ManagerUpdateDTO;
 import com.watering.domain.VO.EnterpriseVO;
 import com.watering.domain.VO.HrVO;
 import com.watering.domain.VO.ManagerVO;
+import com.watering.service.EmployeeService;
+import com.watering.service.EnterpriseService;
 import com.watering.service.HrService;
 import com.watering.service.ManagerService;
 import com.watering.utils.GetCurrentUser;
@@ -40,6 +43,9 @@ public class UserController {
 
     @Autowired
     private HrService hrService;
+
+    @Autowired
+    private EnterpriseService enterpriseService;
 
     @ApiOperation("用sessionId获取用户的角色")
     @GetMapping("/myInfo")
@@ -76,6 +82,12 @@ public class UserController {
     @PutMapping("/manager")
     public ResponseDTO updateManager(@RequestBody ManagerUpdateDTO manager){
         return managerService.updateManger(manager);
+    }
+
+    @ApiOperation("检查用户名")
+    @GetMapping("/check/{username}")
+    public ResponseDTO checkUserName(@PathVariable String username){
+        return enterpriseService.checkUserName(username);
     }
 
 }
