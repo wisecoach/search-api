@@ -29,7 +29,9 @@ public class DepartmentController {
     @ApiOperation("修改部门")
     @PutMapping("")
     public ResponseDTO updateDepartment(@RequestBody DepartmentUpdateDTO department){
+      
         return ResponseDTO.succ();
+
     }
 
 }

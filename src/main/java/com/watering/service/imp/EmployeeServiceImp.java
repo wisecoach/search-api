@@ -213,7 +213,7 @@ public class EmployeeServiceImp implements EmployeeService {
         enterpriseFilter.setStart(entid);
         searchFilters.add(enterpriseFilter);
         //分页查找
-        return pageSearch(searchDTO);
+        return pageSearch(searchDTO,false);
     }
 
 
@@ -228,7 +228,7 @@ public class EmployeeServiceImp implements EmployeeService {
         hiredFilter.setStart(0);
         searchFilters.add(hiredFilter);
         //分页处理
-        return pageSearch(searchDTO);
+        return pageSearch(searchDTO,true);
     }
 
 
@@ -255,7 +255,7 @@ public class EmployeeServiceImp implements EmployeeService {
         return checkImgUrl(newImgUrl,null,type);
     }
 
-    //处理过滤器的值
+    //处理过滤器的值，把前端的数据进行分解
     private void trimFilterValue(SearchFilter searchFilter){
         String originalFilterValue = searchFilter.getValue();
         if (originalFilterValue.startsWith("-")){
@@ -268,7 +268,7 @@ public class EmployeeServiceImp implements EmployeeService {
         }
     }
 
-    //调整过滤器
+    //调整过滤器,对一些特殊数据进行处理
     private void modifyFilter(List<SearchFilter> searchFilters){
         for (SearchFilter searchFilter:searchFilters){
             trimFilterValue(searchFilter);
@@ -294,15 +294,29 @@ public class EmployeeServiceImp implements EmployeeService {
         }
     }
 
+    /**
+     *
+     * @param searchDTO:查找用的DTO
+     * @param isDrop:是不是查询离职的档案
+     * @return 查找结果
+     */
     //分页查找
-    private ResponseDTO<PageInfo<EmployeeSimpleVO>> pageSearch(SearchDTO searchDTO){
+    private ResponseDTO<PageInfo<EmployeeSimpleVO>> pageSearch(SearchDTO searchDTO,boolean isDrop){
         PageHelper.startPage(searchDTO.getPage(),searchDTO.getPageSize());
         List<EmployeeEntity> employeeEntities = employeeEntityMapper.listBySearchDTO(searchDTO);
         List<EmployeeSimpleVO> employeeSimpleVOS = new ArrayList<>();
         for(EmployeeEntity employeeEntity:employeeEntities){
-            EmployeeSimpleVO employeeSimpleVO = new EmployeeSimpleVO();
-            BeanUtils.copyProperties(employeeEntity,employeeSimpleVO);
-            employeeSimpleVOS.add(employeeSimpleVO);
+            EmployeeSimpleVO employee;
+            if(isDrop){
+                employee = new EmployeeSimpleVO();
+                BeanUtils.copyProperties(employeeEntity,employee);
+            }else {
+                EmployeeVO employeeVO = new EmployeeVO();
+                BeanUtils.copyProperties(employeeEntity,employeeVO);
+                employeeVO.setDepartment(departmentEntityMapper.selectByPrimaryKey(employeeEntity.getDepid()).getName());
+                employee = employeeVO;
+            }
+            employeeSimpleVOS.add(employee);
         }
         PageInfo<EmployeeSimpleVO> pageInfo = new PageInfo<>(employeeSimpleVOS);
         return ResponseDTO.succData(pageInfo);

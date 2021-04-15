@@ -1,4 +1,5 @@
 package com.watering.domain.DTO.department;
+
 import lombok.Data;
 
 /**
@@ -10,6 +11,8 @@ import lombok.Data;
  */
 @Data
 public class DepartmentUpdateDTO {
+
     private Integer id;
+
     private String name;
 }

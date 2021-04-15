@@ -28,8 +28,8 @@ public class OccupationController {
     private OccupationService occupationService;
 
     @ApiOperation("根据父id查询子职业")
-    @GetMapping("/{occid}")
-    public ResponseDTO<List<OccupationEntity>> find(@PathVariable Integer occid){
+    @GetMapping("/list/{occid}")
+    public ResponseDTO<List<OccupationEntity>> findSon(@PathVariable Integer occid){
         return occupationService.listSonOccupation(occid);
     }
 
@@ -37,6 +37,11 @@ public class OccupationController {
     @GetMapping("/hot")
     public ResponseDTO<List<OccupationEntity>> hot(){
         return occupationService.hotOccupation();
+    }
+
+    @GetMapping("/{occid}")
+    public ResponseDTO<OccupationEntity> findOccupation(@PathVariable Integer occid){
+        return occupationService.findOccupation(occid);
     }
 
 }
