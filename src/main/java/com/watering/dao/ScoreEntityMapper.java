@@ -18,4 +18,11 @@ public interface ScoreEntityMapper {
     List<ScoreEntity> selectAll();
 
     int updateByPrimaryKey(ScoreEntity record);
+
+    //用于当前经历的分数
+    List<ScoreEntity> listByCarid(Integer carid);
+
+    //用于全部的分数
+    List<ScoreEntity> listByEmpid(Integer empid);
+
 }

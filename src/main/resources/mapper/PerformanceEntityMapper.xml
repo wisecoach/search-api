@@ -16,11 +16,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.PerformanceEntity">
-    insert into performance (id, ctime, empid, 
-      manid, performance, stime, 
+    insert into performance (id, ctime, empid,
+      manid, performance, stime,
       etime, carid)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER}, 
-      #{manid,jdbcType=INTEGER}, #{performance,jdbcType=INTEGER}, #{stime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER},
+      #{manid,jdbcType=INTEGER}, #{performance,jdbcType=INTEGER}, #{stime,jdbcType=TIMESTAMP},
       #{etime,jdbcType=TIMESTAMP}, #{carid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.PerformanceEntity">
@@ -43,4 +43,14 @@
     select id, ctime, empid, manid, performance, stime, etime, carid
     from performance
   </select>
+
+  <select id="selectAllByCarid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from performance where carid=#{carid}
+  </select>
+
+
+  <select id="selectAvgByCarid" resultType="Double">
+    select avg(performance) from performance where carid = #{carid}
+  </select>
 </mapper>
+

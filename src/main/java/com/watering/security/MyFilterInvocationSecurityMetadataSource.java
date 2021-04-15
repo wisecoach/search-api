@@ -1,5 +1,8 @@
 package com.watering.security;
 
+import com.watering.domain.DTO.PermissionDTO;
+import com.watering.service.PermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -19,23 +22,19 @@ import java.util.*;
 @Component
 public class MyFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
+    @Autowired
+    private PermissionService permissionService;
+
     private static HashMap<String, Collection<ConfigAttribute>> map =null;
 
     private void getResourcePermission(){
         map = new HashMap<>();
         //获取全部的权限
-//        List<PermissionDTO> permissions = permissionService.findAllPermission();
+        List<PermissionDTO> permissions = permissionService.findAllPermission();
         //遍历全部权限，把url和角色列表加入map
-//        for(PermissionDTO permission : permissions){
-//            map.put(permission.getUrl(),permission.getRoles());
-//        }
-
-        /*
-        无数据库测试用
-        ArrayList<ConfigAttribute> list = new ArrayList<>();
-        list.add(new RoleDTO(1,"ROLE_admin"));
-        map.put("/test**",list);
-         */
+        for(PermissionDTO permission : permissions){
+            map.put(permission.getUrl(),permission.getRoles());
+        }
     }
 
     @Override

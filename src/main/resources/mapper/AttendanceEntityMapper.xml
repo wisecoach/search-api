@@ -16,11 +16,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.AttendanceEntity">
-    insert into attendance (id, ctime, empid, 
-      manid, attendance, stime, 
+    insert into attendance (id, ctime, empid,
+      manid, attendance, stime,
       etime, carid)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER}, 
-      #{manid,jdbcType=INTEGER}, #{attendance,jdbcType=REAL}, #{stime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{empid,jdbcType=INTEGER},
+      #{manid,jdbcType=INTEGER}, #{attendance,jdbcType=REAL}, #{stime,jdbcType=TIMESTAMP},
       #{etime,jdbcType=TIMESTAMP}, #{carid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.AttendanceEntity">
@@ -42,5 +42,14 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, ctime, empid, manid, attendance, stime, etime, carid
     from attendance
+  </select>
+
+  <select id="selectAllByCarid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from attendance where carid=#{carid}
+  </select>
+
+  <select id="selectAvgByCarid" resultType="Double">
+    select avg(attendance) from attendance where carid = #{carid}
+
   </select>
 </mapper>

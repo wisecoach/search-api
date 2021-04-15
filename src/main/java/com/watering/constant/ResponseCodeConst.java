@@ -1,7 +1,5 @@
 package com.watering.constant;
 
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,7 @@ public class ResponseCodeConst {
         // 系统功能，从0开始
         ResponseCodeContainer.register(ResponseCodeConst.class, 0, 200);
         ResponseCodeContainer.register(LoginResponseCodeConst.class, 201, 300);
-
+        ResponseCodeContainer.register(FileResponseCodeConst.class,301,400);
 
     }
 
@@ -38,6 +36,8 @@ public class ResponseCodeConst {
 //    public static final ResponseCodeConst NOT_EXISTS = new ResponseCodeConst(106, "数据不存在");
 
     public static ResponseCodeConst JSON_FORMAT_ERROR = new ResponseCodeConst(105, "JSON格式或请求参数错误");
+
+    public static ResponseCodeConst PARAM_NOT_NULL = new ResponseCodeConst(106,"参数不能为空");
 
     protected int code;
 

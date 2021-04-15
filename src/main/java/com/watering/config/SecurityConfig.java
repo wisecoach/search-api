@@ -26,12 +26,18 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Enumeration;
 
 /**
  * Created with IntelliJ IDEA.
@@ -61,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置全部路径需要认证
                 .antMatcher("/**").authorizeRequests()
                 //匹配的路径全部运行通过
-                .antMatchers("/login**","logout**","/swagger**","/**").permitAll()
+                .antMatchers("/login**","logout**","/swagger**","/**","/**/*.jpg","/**/*.png").permitAll()
                 //这里使用的时候不能带ROLE_前缀,其实用了数据库导入url可以不要ROLE_前缀
 //                .antMatchers("/uel").hasRole("role")
                 //所有路径需要认证
@@ -79,6 +85,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.deleteCookies()
                 .and()
                 .csrf().disable();
+
+        //session管理
+        http.sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy());
+
         //用重写的Filter替换掉原有的UsernamePasswordAuthenticationFilter
         http
                 .addFilterAt(usernamePasswordAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)
@@ -172,6 +183,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                       String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.NOT_HAVE_PRIVILEGES));
                       responseHandler(httpServletResponse,responseString);
             }
+        };
+    }
+
+    //session过期或无效处理
+    //好像过期会自动给一个sessionId
+    //无效不会自动生成
+    @Bean
+    public InvalidSessionStrategy invalidSessionStrategy(){
+        return (httpServletRequest, httpServletResponse) -> {
+            String responseString = JSONObject.toJSONString(ResponseDTO.wrap(LoginResponseCodeConst.SESSION_ERROR));
+            responseHandler(httpServletResponse,responseString);
         };
     }
 

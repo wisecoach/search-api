@@ -31,4 +31,8 @@ public class EmployeeSimpleVO {
     private String school;
     //专业
     private String major;
+    //电话
+    private String tel;
+    //邮箱
+    private String mail;
 }

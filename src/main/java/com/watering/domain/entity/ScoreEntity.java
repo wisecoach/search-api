@@ -28,9 +28,9 @@ public class ScoreEntity {
     //评估人id
     private Integer valid;
     //态度评分
-    private float attitude;
+    private Double attitude;
     //能力评分
-    private float ability;
+    private Double ability;
     //评价描述
     private String detail;
     //经历id

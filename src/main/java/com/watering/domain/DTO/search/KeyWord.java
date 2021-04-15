@@ -11,11 +11,21 @@ import lombok.Data;
  */
 @Data
 public class KeyWord {
-    private String val;
+    private String value;
     private Type type;
 
     public enum Type{
-        NAME,SCHOOL,MAJOR,DEPARTMENT
+        NAME("NAME"),MAJOR("MAJOR"),DEPARTMENT("DEPARTMENT");
+
+        private String type;
+
+        Type(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return type;
+        }
     }
 
 }

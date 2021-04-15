@@ -16,11 +16,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.ManagerEntity">
-    insert into manager (id, ctime, username, 
-      password, entid, depid, 
+    insert into manager (id, ctime, username,
+      password, entid, depid,
       name, photo)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{entid,jdbcType=INTEGER}, #{depid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{entid,jdbcType=INTEGER}, #{depid,jdbcType=INTEGER},
       #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.ManagerEntity">
@@ -43,4 +43,21 @@
     select id, ctime, username, password, entid, depid, name, photo
     from manager
   </select>
+
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    select * from manager where username = #{username}
+  </select>
+
+  <select id="listByEntid" resultMap="BaseResultMap">
+    select * from manager where entid = #{entid}
+  </select>
+
+<!--  <select id="selectEntNameById" resultType="String">-->
+<!--    select enterprise.name from manager left join enterprise on manager.entid = enterprise.id where manager.id = #{id}-->
+<!--  </select>-->
+
+<!--  <select id="selectDepNameById" resultType="String">-->
+<!--    select department.name from manager left join department on manager.depid = department.id where manager.id =#{id}-->
+<!--  </select>-->
+
 </mapper>

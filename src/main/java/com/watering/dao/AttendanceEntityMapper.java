@@ -15,7 +15,12 @@ public interface AttendanceEntityMapper {
 
     AttendanceEntity selectByPrimaryKey(Integer id);
 
+    List<AttendanceEntity> selectAllByCarid(Integer carid);
+
     List<AttendanceEntity> selectAll();
 
     int updateByPrimaryKey(AttendanceEntity record);
+
+    Double selectAvgByCarid(Integer carid);
+
 }

@@ -13,4 +13,5 @@ import lombok.Data;
 public class HrAddDTO {
     private String username;
     private String password;
+    private String name;
 }

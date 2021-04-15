@@ -14,9 +14,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.watering.domain.entity.OccupationEntity">
-    insert into occupation (id, ctime, name, 
+    insert into occupation (id, ctime, name,
       pid, count, level)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR},
       #{pid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{level,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.watering.domain.entity.OccupationEntity">
@@ -37,4 +37,18 @@
     select id, ctime, name, pid, count, level
     from occupation
   </select>
+
+  <select id="listSonById" resultMap="BaseResultMap">
+    select * from occupation where pid = #{id}
+  </select>
+
+<!--  <select id="selectParentById" resultMap="BaseResultMap">-->
+<!--    select a.* from occupation a left join occupation b on a.id = b.pid where b.id = #{id}-->
+<!--  </select>-->
+
+  <select id="listHot" resultMap="BaseResultMap">
+    select * from occupation where level = 3 order by count desc limit 5
+  </select>
+
+
 </mapper>

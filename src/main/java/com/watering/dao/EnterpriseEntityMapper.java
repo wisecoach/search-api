@@ -18,4 +18,6 @@ public interface EnterpriseEntityMapper {
     List<EnterpriseEntity> selectAll();
 
     int updateByPrimaryKey(EnterpriseEntity record);
+
+    EnterpriseEntity selectByUserName(String username);
 }
