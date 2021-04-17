@@ -52,7 +52,7 @@ public class SearchController {
     @ApiOperation("离职员工查询")
     @PostMapping("/drop")
     public ResponseDTO<PageInfo<EmployeeSimpleVO>> dropEmployeeSearch(@RequestBody SearchDTO search){
-        return null;
+        return employeeService.dropEmployeeSearch(search);
     }
 
     @ApiOperation("查找hr 再看看要不要改模型")

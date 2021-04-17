@@ -9,7 +9,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 
 /**
@@ -29,20 +31,23 @@ public class UploadController {
 
     @ApiOperation("上传简历")
     @PostMapping("/resume")
-    public ResponseDTO<String> uploadResume(@RequestBody MultipartFile resume){
-        return fileUploadService.uploadFile(resume, FileTypeEnum.IMG_RESUME);
+    public ResponseDTO<String> uploadResume(HttpServletRequest request){
+        StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
+        return fileUploadService.uploadFile(req.getFile("file"), FileTypeEnum.IMG_RESUME);
     }
 
     @ApiOperation("上传头像")
     @PostMapping("/photo")
-    public ResponseDTO<String> uploadPhoto(@RequestBody MultipartFile photo){
-        return fileUploadService.uploadFile(photo,FileTypeEnum.IMG_PHOTO);
+    public ResponseDTO<String> uploadPhoto(HttpServletRequest request){
+        StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
+        return fileUploadService.uploadFile(req.getFile("file"),FileTypeEnum.IMG_PHOTO);
     }
 
     @ApiOperation("修改头像")
     @PutMapping("/photo")
-    public ResponseDTO updatePhoto(@RequestBody MultipartFile photo) throws FileNotFoundException {
-        return fileUploadService.updateFile(photo,FileTypeEnum.IMG_PHOTO);
+    public ResponseDTO updatePhoto(HttpServletRequest request) throws FileNotFoundException {
+        StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
+        return fileUploadService.updateFile(req.getFile("file"),FileTypeEnum.IMG_PHOTO);
     }
 
 

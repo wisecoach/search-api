@@ -104,8 +104,8 @@ public class ScoreServiceImp implements ScoreService {
             attitude += scoreEntity.getAttitude();
             ability += scoreEntity.getAbility();
         }
-        avgScoreVO.setAttitude(attitude / scoreEntities.size());
-        avgScoreVO.setAbility(ability / scoreEntities.size());
+        avgScoreVO.setAttitude(scoreEntities.size() > 0 ? attitude / scoreEntities.size(): attitude);
+        avgScoreVO.setAbility(scoreEntities.size() > 0 ? ability / scoreEntities.size() : ability);
         return ResponseDTO.succData(avgScoreVO);
     }
 

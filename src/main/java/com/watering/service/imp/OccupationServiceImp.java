@@ -6,6 +6,7 @@ import com.watering.domain.VO.OccupationVO;
 import com.watering.domain.entity.OccupationEntity;
 import com.watering.service.OccupationService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 @Service
 public class OccupationServiceImp implements OccupationService {
 
+    @Autowired
     private OccupationEntityMapper occupationEntityMapper;
 
     @Override

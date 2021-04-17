@@ -242,7 +242,7 @@ public class EmployeeServiceImp implements EmployeeService {
     private String checkImgUrl(String newImgUrl,String oldImgUrl,FileTypeEnum type) throws FileNotFoundException {
         if(null!=newImgUrl){
             if(fileUploadService.checkFile(newImgUrl, type))
-                newImgUrl = FileTypeEnum.IMG_PHOTO.getUrl() + newImgUrl;
+                newImgUrl = type.getUrl() + newImgUrl;
             else
                 newImgUrl = oldImgUrl;
         }else{

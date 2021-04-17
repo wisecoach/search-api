@@ -3,10 +3,13 @@ package com.watering.service.imp;
 import com.watering.dao.DepartmentEntityMapper;
 import com.watering.dao.EnterpriseEntityMapper;
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.DTO.RoleDTO;
 import com.watering.domain.DTO.department.DepartmentDTO;
 import com.watering.domain.DTO.department.DepartmentUpdateDTO;
 import com.watering.domain.entity.DepartmentEntity;
 import com.watering.domain.entity.EnterpriseEntity;
+import com.watering.domain.entity.HrEntity;
+import com.watering.domain.entity.ManagerEntity;
 import com.watering.service.DepartmentService;
 import com.watering.utils.GetCurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +32,20 @@ public class DepartmentServiceImp implements DepartmentService {
     @Autowired
     private DepartmentEntityMapper departmentEntityMapper;
 
-    public ResponseDTO<List<DepartmentEntity>> departmentSearch(){
-        EnterpriseEntity enterpriseEntity = (EnterpriseEntity) GetCurrentUser.getUser();
-        List<DepartmentEntity> list = departmentEntityMapper.listByEntid(enterpriseEntity.getId());
+    public ResponseDTO<List<DepartmentEntity>> departmentSearch(){Integer entid = null;
+        String role = GetCurrentUser.getUserRole();
+        Object object = GetCurrentUser.getUser();
+        if(role.equals(RoleDTO.Type.ROLE_HR.getType())){
+            HrEntity hrEntity = (HrEntity) object;
+            entid = hrEntity.getEntid();
+        }else if(role.equals(RoleDTO.Type.ROLE_MANAGER.getType())){
+            ManagerEntity managerEntity = (ManagerEntity) object;
+            entid = managerEntity.getEntid();
+        }else{
+            EnterpriseEntity enterpriseEntity = (EnterpriseEntity) object;
+            entid = enterpriseEntity.getId();
+        }
+        List<DepartmentEntity> list = departmentEntityMapper.listByEntid(entid);
         return ResponseDTO.succData(list);
     }
 

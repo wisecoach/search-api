@@ -30,7 +30,6 @@ public class UploadConfig {
         File file = new File(parentPath+fileTypeEnum.getPath());
         String path = file.getAbsolutePath()+"/";
         path = path.replace("\\","/");
-//        System.out.println("file:///"+path);
         return "file:///"+path;
     }
 
