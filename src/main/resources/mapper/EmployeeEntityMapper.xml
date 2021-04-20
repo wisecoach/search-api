@@ -33,7 +33,7 @@
       degree, school, major,
       mail, resume, entid,
       depid, hrid, innid)
-    values (#{id,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, now(), #{name,jdbcType=VARCHAR},
       #{birth,jdbcType=TIMESTAMP}, #{gender,jdbcType=BIT}, #{tel,jdbcType=VARCHAR}, #{hired,jdbcType=BIT},
       #{photo,jdbcType=VARCHAR}, #{seniority,jdbcType=REAL}, #{address,jdbcType=VARCHAR},
       #{degree,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR},

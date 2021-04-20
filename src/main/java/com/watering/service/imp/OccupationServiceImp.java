@@ -29,6 +29,8 @@ public class OccupationServiceImp implements OccupationService {
     public void addCount(Integer occid) {
         OccupationEntity occupationEntity = occupationEntityMapper.selectByPrimaryKey(occid);
         Integer pid = occupationEntity.getPid();
+        OccupationEntity root = occupationEntityMapper.selectByPrimaryKey(0);
+        root.setCount(occupationEntity.getCount()+1);
         while(pid!=-1){
             occupationEntity.setCount(occupationEntity.getCount()+1);
             occupationEntityMapper.updateByPrimaryKey(occupationEntity);

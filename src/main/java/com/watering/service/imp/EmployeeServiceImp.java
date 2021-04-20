@@ -1,5 +1,6 @@
 package com.watering.service.imp;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.watering.constant.FileTypeEnum;
@@ -303,8 +304,9 @@ public class EmployeeServiceImp implements EmployeeService {
     //分页查找
     private ResponseDTO<PageInfo<EmployeeSimpleVO>> pageSearch(SearchDTO searchDTO,boolean isDrop){
         PageHelper.startPage(searchDTO.getPage(),searchDTO.getPageSize());
-        List<EmployeeEntity> employeeEntities = employeeEntityMapper.listBySearchDTO(searchDTO);
-        List<EmployeeSimpleVO> employeeSimpleVOS = new ArrayList<>();
+        Page<EmployeeEntity> employeeEntities = employeeEntityMapper.listBySearchDTO(searchDTO);
+        Page<EmployeeSimpleVO> employeeSimpleVOS = new Page<>();
+        employeeSimpleVOS.setTotal(employeeEntities.getTotal());
         for(EmployeeEntity employeeEntity:employeeEntities){
             EmployeeSimpleVO employee;
             if(isDrop){
