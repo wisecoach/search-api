@@ -32,8 +32,8 @@ spring:
     time-zone: GMT+8
 
 upload-file-parent-path: /www/wwwroot/search.zjnu404.xyz/static/upload
-static-server-root: http://search.zjnu404.xyz:8081/
+static-server-root: http://localhost:8081/
 
 
-default-photo-hr: http://search.zjnu404.xyz:8081/head_img/hr.jpg
-default-photo-manager: http://search.zjnu404.xyz:8081/head_img/manager.jpg
+default-photo-hr: http://localhost:8081/head_img/hr.jpg
+default-photo-manager: http://localhost:8081/head_img/manager.jpg

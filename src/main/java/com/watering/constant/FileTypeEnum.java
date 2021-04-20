@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 public enum FileTypeEnum {
 
 
-    IMG_RESUME("img/resume","temp/img","http://search.zjnu404.xyz:8081/resume_img/"),
-    IMG_PHOTO("img/photo","temp/img","http://search.zjnu404.xyz:8081/head_img/");
+    IMG_RESUME("img/resume","temp/img","http://localhost:8081/resume_img/"),
+    IMG_PHOTO("img/photo","temp/img","http://localhost:8081/head_img/");
 
     //存储的子路径
     private String path;
