@@ -1,12 +1,12 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.dao.OccupationEntityMapper;
 import com.watering.domain.DTO.ResponseDTO;
-import com.watering.domain.VO.OccupationVO;
 import com.watering.domain.entity.OccupationEntity;
 import com.watering.service.OccupationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class OccupationServiceImp implements OccupationService {
+public class OccupationServiceImpl implements OccupationService {
 
     @Autowired
     private OccupationEntityMapper occupationEntityMapper;
@@ -51,6 +51,7 @@ public class OccupationServiceImp implements OccupationService {
         }
     }
 
+    @Override
     public ResponseDTO<OccupationEntity> findOccupation(Integer occid){
         return ResponseDTO.succData(occupationEntityMapper.selectByPrimaryKey(occid));
     }
@@ -68,6 +69,7 @@ public class OccupationServiceImp implements OccupationService {
     }
 
     //输入为自己的id
+    @Override
     public ResponseDTO<List<OccupationEntity>> listParentOccupation(Integer occid){
         OccupationEntity occupationEntity = occupationEntityMapper.selectByPrimaryKey(occid);
         Integer pid = occupationEntity.getPid();

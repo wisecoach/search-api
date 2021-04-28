@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.constant.LoginResponseCodeConst;
 import com.watering.dao.HrEntityMapper;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class EnterpriseServiceImp implements EnterpriseService {
+public class EnterpriseServiceImpl implements EnterpriseService {
 
     @Autowired
     private IndustryEntityMapper industryEntityMapper;

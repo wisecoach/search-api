@@ -1,8 +1,7 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.watering.constant.LoginResponseCodeConst;
 import com.watering.constant.ResponseCodeConst;
 import com.watering.dao.CareerEntityMapper;
 import com.watering.dao.HrEntityMapper;
@@ -21,7 +20,6 @@ import com.watering.service.ScoreService;
 import com.watering.utils.GetCurrentUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class ScoreServiceImp implements ScoreService {
+public class ScoreServiceImpl implements ScoreService {
 
     @Autowired
     private CareerEntityMapper careerEntityMapper;

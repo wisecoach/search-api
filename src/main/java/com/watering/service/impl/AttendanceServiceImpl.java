@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.dao.AttendanceEntityMapper;
 import com.watering.dao.CareerEntityMapper;
@@ -29,7 +29,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class AttendanceServiceImp implements AttendanceService {
+public class AttendanceServiceImpl implements AttendanceService {
 
     @Autowired
     private AttendanceEntityMapper attendanceEntityMapper;

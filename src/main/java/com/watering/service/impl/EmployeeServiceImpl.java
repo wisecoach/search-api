@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -14,7 +14,6 @@ import com.watering.domain.DTO.employee.EmployeeUpdateCareerDTO;
 import com.watering.domain.DTO.search.KeyWord;
 import com.watering.domain.DTO.search.SearchDTO;
 import com.watering.domain.DTO.search.SearchFilter;
-import com.watering.domain.VO.CareerVO;
 import com.watering.domain.VO.EmployeeSimpleVO;
 import com.watering.domain.VO.EmployeeVO;
 import com.watering.domain.VO.HrVO;
@@ -29,7 +28,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +39,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class EmployeeServiceImp implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeEntityMapper employeeEntityMapper;
@@ -323,6 +321,4 @@ public class EmployeeServiceImp implements EmployeeService {
         PageInfo<EmployeeSimpleVO> pageInfo = new PageInfo<>(employeeSimpleVOS);
         return ResponseDTO.succData(pageInfo);
     }
-
-
 }

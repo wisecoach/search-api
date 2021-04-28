@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.constant.LoginResponseCodeConst;
 import com.watering.dao.DepartmentEntityMapper;
@@ -33,7 +33,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class ManagerServiceImp implements ManagerService {
+public class ManagerServiceImpl implements ManagerService {
 
     @Value("${default-photo-manager}")
     private String ManagerDefaultPhotoUrl;

@@ -4,13 +4,14 @@ server:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 #  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpll
 
 pagehelper:
   helperDialect: mysql
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
 
 
 spring:
@@ -30,6 +31,8 @@ spring:
 
   jackson:
     time-zone: GMT+8
+  redis:
+    port: 6380
 
 upload-file-parent-path: /www/wwwroot/search.zjnu404.xyz/static/upload/
 static-server-root: http://localhost:8081/

@@ -43,7 +43,7 @@ public class CorsConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         //  你需要跨域的地址  注意这里的 127.0.0.1 != localhost
         // * 表示对所有的地址都可以访问
-        corsConfiguration.addAllowedOrigin("http://search.zjnu404.xyz");
+        corsConfiguration.addAllowedOrigin("http://localhost:8000");
         //  跨域的请求头
         corsConfiguration.addAllowedHeader("*"); // 2
         //  跨域的请求方法
@@ -53,37 +53,37 @@ public class CorsConfig {
         corsConfiguration.setAllowCredentials(true);
         return corsConfiguration;
     }
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        //配置 可以访问的地址
-        source.registerCorsConfiguration("/**", buildConfig()); // 4
-        return new MyCorsFilter(source);
-    }
-
-    public class MyCorsFilter extends CorsFilter {
-        private final CorsConfigurationSource configSource;
-        private CorsProcessor processor = new DefaultCorsProcessor();
-
-        public MyCorsFilter(CorsConfigurationSource configSource) {
-            super(configSource);
-            Assert.notNull(configSource, "CorsConfigurationSource must not be null");
-            this.configSource = configSource;
-        }
-
-        @Override
-        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-            ServerHttpRequest req = new ServletServerHttpRequest(request);
-            String requestOrigin = req.getHeaders().getOrigin();
-            System.out.println("[config]:" + configSource);
-            System.out.println("[origin]:" + requestOrigin);
-            CorsConfiguration corsConfiguration = this.configSource.getCorsConfiguration(request);
-            boolean isValid = this.processor.processRequest(corsConfiguration, request, response);
-            if (isValid && !CorsUtils.isPreFlightRequest(request)) {
-                filterChain.doFilter(request, response);
-            }
-        }
-    }
+    // @Bean
+    // public CorsFilter corsFilter() {
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     //配置 可以访问的地址
+    //     source.registerCorsConfiguration("/**", buildConfig()); // 4
+    //     return new MyCorsFilter(source);
+    // }
+    //
+    // public class MyCorsFilter extends CorsFilter {
+    //     private final CorsConfigurationSource configSource;
+    //     private CorsProcessor processor = new DefaultCorsProcessor();
+    //
+    //     public MyCorsFilter(CorsConfigurationSource configSource) {
+    //         super(configSource);
+    //         Assert.notNull(configSource, "CorsConfigurationSource must not be null");
+    //         this.configSource = configSource;
+    //     }
+    //
+    //     @Override
+    //     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    //         ServerHttpRequest req = new ServletServerHttpRequest(request);
+    //         String requestOrigin = req.getHeaders().getOrigin();
+    //         System.out.println("[config]:" + configSource);
+    //         System.out.println("[origin]:" + requestOrigin);
+    //         CorsConfiguration corsConfiguration = this.configSource.getCorsConfiguration(request);
+    //         boolean isValid = this.processor.processRequest(corsConfiguration, request, response);
+    //         if (isValid && !CorsUtils.isPreFlightRequest(request)) {
+    //             filterChain.doFilter(request, response);
+    //         }
+    //     }
+    // }
 
 
 }

@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.constant.LoginResponseCodeConst;
 import com.watering.dao.EnterpriseEntityMapper;
@@ -17,7 +17,6 @@ import com.watering.utils.GetCurrentUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class HrServiceImp implements HrService {
+public class HrServiceImpl implements HrService {
 
     @Value("${default-photo-hr}")
     private String HrDefaultPhotoUrl;

@@ -1,7 +1,6 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.dao.DepartmentEntityMapper;
-import com.watering.dao.EnterpriseEntityMapper;
 import com.watering.domain.DTO.ResponseDTO;
 import com.watering.domain.DTO.RoleDTO;
 import com.watering.domain.DTO.department.DepartmentDTO;
@@ -14,7 +13,6 @@ import com.watering.service.DepartmentService;
 import com.watering.utils.GetCurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Date;
 import java.util.List;
@@ -27,7 +25,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class DepartmentServiceImp implements DepartmentService {
+public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentEntityMapper departmentEntityMapper;

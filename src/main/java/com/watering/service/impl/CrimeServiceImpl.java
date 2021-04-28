@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.dao.CareerEntityMapper;
 import com.watering.dao.CrimeEntityMapper;
@@ -29,7 +29,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class CrimeServiceImp implements CrimeService {
+public class CrimeServiceImpl implements CrimeService {
 
     @Autowired
     private CrimeEntityMapper crimeEntityMapper;

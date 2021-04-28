@@ -1,4 +1,4 @@
-package com.watering.service.imp;
+package com.watering.service.impl;
 
 import com.watering.dao.CareerEntityMapper;
 import com.watering.dao.EmployeeEntityMapper;
@@ -29,7 +29,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class PerformanceServiceImp implements PerformanceService {
+public class PerformanceServiceImpl implements PerformanceService {
 
     @Autowired
     private PerformanceEntityMapper performanceEntityMapper;
