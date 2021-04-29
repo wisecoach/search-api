@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @Date: 2021/04/02/20:13
  * @Description:
  */
-@ControllerAdvice
+// @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ResponseBody

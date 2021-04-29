@@ -26,6 +26,12 @@ public interface OccupationEntityMapper {
 
     OccupationEntity selectByPid(Integer id);
 
+    @Cacheable(value = "month", keyGenerator = "monthKeyGenerator")
+    int selectCountByPrimaryKeyForCache(Integer id, Integer distance);
+
+    @Cacheable(value = "month", keyGenerator = "monthKeyGenerator")
+    int selectCountByPrimaryKey(Integer id);
+
     List<OccupationEntity> listHot();
 
 }

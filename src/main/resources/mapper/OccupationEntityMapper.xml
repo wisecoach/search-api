@@ -46,6 +46,14 @@
 <!--    select a.* from occupation a left join occupation b on a.id = b.pid where b.id = #{id}-->
 <!--  </select>-->
 
+  <select id="selectCountByPrimaryKey" resultType="int">
+    select count from occupation where id=#{id}
+  </select>
+
+  <select id="selectCountByPrimaryKeyForCache" resultType="int">
+    select count from occupation where id=#{id}
+  </select>
+
   <select id="listHot" resultMap="BaseResultMap">
     select * from occupation where level = 3 order by count desc limit 5
   </select>

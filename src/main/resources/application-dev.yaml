@@ -34,7 +34,7 @@ spring:
   redis:
     port: 6380
 
-upload-file-parent-path: /www/wwwroot/search.zjnu404.xyz/static/upload/
+upload-file-parent-path: /mnt/D/search/static/upload/
 static-server-root: http://localhost:8081/
 
 

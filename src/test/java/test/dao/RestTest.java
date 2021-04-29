@@ -1,6 +1,7 @@
 package test.dao;
 
 import com.watering.ApiMain8081;
+import com.watering.dao.OccupationEntityMapper;
 import io.swagger.annotations.Api;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,10 @@ public class RestTest {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private OccupationEntityMapper mapper;
+
     @Test
     public void test(){
-        redisTemplate.opsForValue().set(111, "433");
-        System.out.println(redisTemplate.opsForValue().get(111));
     }
 }

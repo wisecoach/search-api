@@ -1,7 +1,9 @@
 package com.watering.controller;
 
 import com.watering.domain.DTO.ResponseDTO;
+import com.watering.domain.VO.series.OccupationAmountSeriesVO;
 import com.watering.domain.entity.OccupationEntity;
+import com.watering.service.ChartService;
 import com.watering.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,25 +20,14 @@ import java.util.Random;
 public class ChartController {
 
     @Autowired
-    private OccupationService occupationService;
+    private ChartService chartService;
 
     @RequestMapping("/amount")
     public ResponseDTO getAmount(
             @RequestParam("occid") Integer occid,
             @RequestParam(value = "size",defaultValue = "7") Integer size
     ){
-        Random random = new Random();
-        List<Integer> list = new ArrayList<>();
-        ResponseDTO<OccupationEntity> occupation = occupationService.findOccupation(occid);
-        HashMap<Object, Object> map = new HashMap<>();
-        OccupationEntity occupationData = occupation.getData();
-        Integer count = occupationData.getCount();
-        for (int i = 0; i < size; i++) {
-            double factor = random.nextDouble() * 0.1 + 0.95;
-            list.add((int)(count * factor));
-        }
-        map.put("occupation", occupation.getData());
-        map.put("series", list);
-        return ResponseDTO.succData(map);
+        ResponseDTO<OccupationAmountSeriesVO> occupationAmount = chartService.getOccupationAmount(occid, size);
+        return occupationAmount;
     }
 }
